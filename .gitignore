@@ -1,9 +1,8 @@
 static/
-dist/
-lib/
 build/
 node_modules
 website/src/docs/
 npm-debug.log
 !website/static/
 yarn-error.log
+meta/bundle-size-stats
