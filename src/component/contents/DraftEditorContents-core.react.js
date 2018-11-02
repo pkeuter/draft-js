@@ -94,7 +94,7 @@ class DraftEditorContents extends React.Component<Props> {
       return true;
     }
 
-    const nextNativeContent = nextEditorState.getNativelyRenderedContent();
+    // const nextNativeContent = nextEditorState.getNativelyRenderedContent();
 
     const wasComposing = prevEditorState.isInCompositionMode();
     const nowComposing = nextEditorState.isInCompositionMode();
@@ -103,8 +103,8 @@ class DraftEditorContents extends React.Component<Props> {
     // rendered state, there's nothing new to be done.
     if (
       prevEditorState === nextEditorState ||
-      (nextNativeContent !== null &&
-        nextEditorState.getCurrentContent() === nextNativeContent) ||
+      // (nextNativeContent !== null &&
+      //   nextEditorState.getCurrentContent() === nextNativeContent) ||
       (wasComposing && nowComposing)
     ) {
       return false;
