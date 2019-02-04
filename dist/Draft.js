@@ -1,12 +1,10 @@
 /**
  * Draft v0.10.5
  *
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -100,48 +98,47 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
+ * 
  */
 
 
-
+var validateFormat =  true ? function (format) {} : function (format) {
+  if (format === undefined) {
+    throw new Error('invariant(...): Second argument must be a string.');
+  }
+};
 /**
  * Use invariant() to assert state which your program assumes to be true.
  *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
+ * Provide sprintf-style format (only %s is supported) and arguments to provide
+ * information about what broke and what you were expecting.
  *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
+ * The invariant message will be stripped in production, but the invariant will
+ * remain to ensure logic does not differ in production.
  */
 
-var validateFormat = function validateFormat(format) {};
+function invariant(condition, format) {
+  for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+    args[_key - 2] = arguments[_key];
+  }
 
-if (true) {
-  validateFormat = function validateFormat(format) {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
-  };
-}
-
-function invariant(condition, format, a, b, c, d, e, f) {
   validateFormat(format);
 
   if (!condition) {
     var error;
+
     if (format === undefined) {
       error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
     } else {
-      var args = [a, b, c, d, e, f];
       var argIndex = 0;
       error = new Error(format.replace(/%s/g, function () {
-        return args[argIndex++];
+        return String(args[argIndex++]);
       }));
       error.name = 'Invariant Violation';
     }
 
-    error.framesToPop = 1; // we don't care about invariant's own frame
+    error.framesToPop = 1; // Skip invariant's own stack frame.
+
     throw error;
   }
 }
@@ -154,12 +151,10 @@ module.exports = invariant;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -711,7 +706,9 @@ function lookUpwardForInlineStyle(content, fromKey) {
     return block.getLength();
   }).first();
 
-  if (lastNonEmpty) return lastNonEmpty.getInlineStyleAt(lastNonEmpty.getLength() - 1);
+  if (lastNonEmpty) {
+    return lastNonEmpty.getInlineStyleAt(lastNonEmpty.getLength() - 1);
+  }
   return OrderedSet();
 }
 
@@ -820,12 +817,10 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -986,12 +981,10 @@ module.exports = DraftModifier;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -1107,12 +1100,10 @@ module.exports = CharacterMetadata;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -1268,12 +1259,10 @@ module.exports = ContentBlockNode;
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict
@@ -1303,11 +1292,11 @@ module.exports = function (name) {
  *
  * 
  */
-
 var nullthrows = function nullthrows(x) {
   if (x != null) {
     return x;
   }
+
   throw new Error("Got unexpected null or undefined");
 };
 
@@ -1319,12 +1308,10 @@ module.exports = nullthrows;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict
@@ -1367,13 +1354,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_10__;
  */
 
 
-
 var UserAgentData = __webpack_require__(97);
+
 var VersionRange = __webpack_require__(100);
 
 var mapObject = __webpack_require__(101);
-var memoizeStringOnly = __webpack_require__(102);
 
+var memoizeStringOnly = __webpack_require__(102);
 /**
  * Checks to see whether `name` and `version` satisfy `query`.
  *
@@ -1383,19 +1370,22 @@ var memoizeStringOnly = __webpack_require__(102);
  * @param {?function} normalizer Optional pre-processor for range expression
  * @return {boolean}
  */
+
+
 function compare(name, version, query, normalizer) {
   // check for exact match with no version
   if (name === query) {
     return true;
-  }
+  } // check for non-matching names
 
-  // check for non-matching names
+
   if (!query.startsWith(name)) {
     return false;
-  }
+  } // full comparison with version
 
-  // full comparison with version
+
   var range = query.slice(name.length);
+
   if (version) {
     range = normalizer ? normalizer(range) : range;
     return VersionRange.contains(range, version);
@@ -1403,7 +1393,6 @@ function compare(name, version, query, normalizer) {
 
   return false;
 }
-
 /**
  * Normalizes `version` by stripping any "NT" prefix, but only on the Windows
  * platform.
@@ -1413,6 +1402,8 @@ function compare(name, version, query, normalizer) {
  * @param {string} version
  * @return {string}
  */
+
+
 function normalizePlatformVersion(version) {
   if (UserAgentData.platformName === 'Windows') {
     return version.replace(/^\s*NT/, '');
@@ -1420,11 +1411,12 @@ function normalizePlatformVersion(version) {
 
   return version;
 }
-
 /**
  * Provides client-side access to the authoritative PHP-generated User Agent
  * information supplied by the server.
  */
+
+
 var UserAgent = {
   /**
    * Check if the User Agent browser matches `query`.
@@ -1473,7 +1465,6 @@ var UserAgent = {
     return compare(UserAgentData.browserName, UserAgentData.browserFullVersion, query);
   },
 
-
   /**
    * Check if the User Agent browser uses a 32 or 64 bit architecture.
    *
@@ -1485,7 +1476,6 @@ var UserAgent = {
   isBrowserArchitecture: function isBrowserArchitecture(query) {
     return compare(UserAgentData.browserArchitecture, null, query);
   },
-
 
   /**
    * Check if the User Agent device matches `query`.
@@ -1515,7 +1505,6 @@ var UserAgent = {
     return compare(UserAgentData.deviceName, null, query);
   },
 
-
   /**
    * Check if the User Agent rendering engine matches `query`.
    *
@@ -1541,7 +1530,6 @@ var UserAgent = {
   isEngine: function isEngine(query) {
     return compare(UserAgentData.engineName, UserAgentData.engineVersion, query);
   },
-
 
   /**
    * Check if the User Agent platform matches `query`.
@@ -1582,7 +1570,6 @@ var UserAgent = {
     return compare(UserAgentData.platformName, UserAgentData.platformFullVersion, query, normalizePlatformVersion);
   },
 
-
   /**
    * Check if the User Agent platform is a 32 or 64 bit architecture.
    *
@@ -1595,7 +1582,6 @@ var UserAgent = {
     return compare(UserAgentData.platformArchitecture, null, query);
   }
 };
-
 module.exports = mapObject(UserAgent, memoizeStringOnly);
 
 /***/ }),
@@ -1631,12 +1617,10 @@ module.exports = g;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -1806,6 +1790,7 @@ function cx(classNames) {
       return classNames[className];
     }).map(replace).join(' ');
   }
+
   return Array.prototype.map.call(arguments, replace).join(' ');
 }
 
@@ -1821,12 +1806,10 @@ module.exports = cx;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -1890,25 +1873,23 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_16__;
  */
 
 
-
-var invariant = __webpack_require__(1);
-
-// These two ranges are consecutive so anything in [HIGH_START, LOW_END] is a
+var invariant = __webpack_require__(1); // These two ranges are consecutive so anything in [HIGH_START, LOW_END] is a
 // surrogate code unit.
+
+
 var SURROGATE_HIGH_START = 0xD800;
 var SURROGATE_HIGH_END = 0xDBFF;
 var SURROGATE_LOW_START = 0xDC00;
 var SURROGATE_LOW_END = 0xDFFF;
 var SURROGATE_UNITS_REGEX = /[\uD800-\uDFFF]/;
-
 /**
  * @param {number} codeUnit   A Unicode code-unit, in range [0, 0x10FFFF]
  * @return {boolean}          Whether code-unit is in a surrogate (hi/low) range
  */
+
 function isCodeUnitInSurrogateRange(codeUnit) {
   return SURROGATE_HIGH_START <= codeUnit && codeUnit <= SURROGATE_LOW_END;
 }
-
 /**
  * Returns whether the two characters starting at `index` form a surrogate pair.
  * For example, given the string s = "\uD83D\uDE0A", (s, 0) returns true and
@@ -1918,24 +1899,28 @@ function isCodeUnitInSurrogateRange(codeUnit) {
  * @param {number} index
  * @return {boolean}
  */
+
+
 function isSurrogatePair(str, index) {
   !(0 <= index && index < str.length) ?  true ? invariant(false, 'isSurrogatePair: Invalid index %s for string length %s.', index, str.length) : invariant(false) : void 0;
+
   if (index + 1 === str.length) {
     return false;
   }
+
   var first = str.charCodeAt(index);
   var second = str.charCodeAt(index + 1);
   return SURROGATE_HIGH_START <= first && first <= SURROGATE_HIGH_END && SURROGATE_LOW_START <= second && second <= SURROGATE_LOW_END;
 }
-
 /**
  * @param {string} str  Non-empty string
  * @return {boolean}    True if the input includes any surrogate code units
  */
+
+
 function hasSurrogateUnit(str) {
   return SURROGATE_UNITS_REGEX.test(str);
 }
-
 /**
  * Return the length of the original Unicode character at given position in the
  * String by looking into the UTF-16 code unit; that is equal to 1 for any
@@ -1954,16 +1939,19 @@ function hasSurrogateUnit(str) {
  * @param {number} pos  Position in the string to look for one code unit
  * @return {number}      Number 1 or 2
  */
+
+
 function getUTF16Length(str, pos) {
   return 1 + isCodeUnitInSurrogateRange(str.charCodeAt(pos));
 }
-
 /**
  * Fully Unicode-enabled replacement for String#length
  *
  * @param {string} str  Valid Unicode string
  * @return {number}     The number of Unicode characters in the string
  */
+
+
 function strlen(str) {
   // Call the native functions if there's no surrogate char
   if (!hasSurrogateUnit(str)) {
@@ -1971,12 +1959,13 @@ function strlen(str) {
   }
 
   var len = 0;
+
   for (var pos = 0; pos < str.length; pos += getUTF16Length(str, pos)) {
     len++;
   }
+
   return len;
 }
-
 /**
  * Fully Unicode-enabled replacement for String#substr()
  *
@@ -1986,27 +1975,31 @@ function strlen(str) {
  *                          (default: to the end of the string)
  * @return {string}         Extracted sub-string
  */
+
+
 function substr(str, start, length) {
   start = start || 0;
-  length = length === undefined ? Infinity : length || 0;
+  length = length === undefined ? Infinity : length || 0; // Call the native functions if there's no surrogate char
 
-  // Call the native functions if there's no surrogate char
   if (!hasSurrogateUnit(str)) {
     return str.substr(start, length);
-  }
+  } // Obvious cases
 
-  // Obvious cases
+
   var size = str.length;
+
   if (size <= 0 || start > size || length <= 0) {
     return '';
-  }
+  } // Find the actual starting position
 
-  // Find the actual starting position
+
   var posA = 0;
+
   if (start > 0) {
     for (; start > 0 && posA < size; start--) {
       posA += getUTF16Length(str, posA);
     }
+
     if (posA >= size) {
       return '';
     }
@@ -2014,13 +2007,15 @@ function substr(str, start, length) {
     for (posA = size; start < 0 && 0 < posA; start++) {
       posA -= getUTF16Length(str, posA - 1);
     }
+
     if (posA < 0) {
       posA = 0;
     }
-  }
+  } // Find the actual ending position
 
-  // Find the actual ending position
+
   var posB = size;
+
   if (length < size) {
     for (posB = posA; length > 0 && posB < size; length--) {
       posB += getUTF16Length(str, posB);
@@ -2029,7 +2024,6 @@ function substr(str, start, length) {
 
   return str.substring(posA, posB);
 }
-
 /**
  * Fully Unicode-enabled replacement for String#substring()
  *
@@ -2039,6 +2033,8 @@ function substr(str, start, length) {
  *                        (default: end of the string)
  * @return {string}       Extracted sub-string
  */
+
+
 function substring(str, start, end) {
   start = start || 0;
   end = end === undefined ? Infinity : end || 0;
@@ -2046,6 +2042,7 @@ function substring(str, start, end) {
   if (start < 0) {
     start = 0;
   }
+
   if (end < 0) {
     end = 0;
   }
@@ -2054,18 +2051,21 @@ function substring(str, start, end) {
   start = start < end ? start : end;
   return substr(str, start, length);
 }
-
 /**
  * Get a list of Unicode code-points from a String
  *
  * @param {string} str        Valid Unicode string
  * @return {array<number>}    A list of code-points in [0..0x10FFFF]
  */
+
+
 function getCodePoints(str) {
   var codePoints = [];
+
   for (var pos = 0; pos < str.length; pos += getUTF16Length(str, pos)) {
     codePoints.push(str.codePointAt(pos));
   }
+
   return codePoints;
 }
 
@@ -2079,7 +2079,6 @@ var UnicodeUtils = {
   substring: substring,
   substr: substr
 };
-
 module.exports = UnicodeUtils;
 
 /***/ }),
@@ -2088,12 +2087,10 @@ module.exports = UnicodeUtils;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -2123,12 +2120,10 @@ module.exports = BlockMapBuilder;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -2178,12 +2173,10 @@ var _assign = __webpack_require__(3);
 var _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -2372,12 +2365,10 @@ module.exports = DraftEntity;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -2402,12 +2393,10 @@ module.exports = isEventHandled;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -2478,12 +2467,10 @@ module.exports = removeTextWithStrategy;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -2557,27 +2544,29 @@ module.exports = getContentStateFragment;
  *
  * 
  */
-
 function makeEmptyFunction(arg) {
   return function () {
     return arg;
   };
 }
-
 /**
  * This function accepts and discards inputs; it has no side effects. This is
  * primarily useful idiomatically for overridable function endpoints which
  * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
  */
+
+
 var emptyFunction = function emptyFunction() {};
 
 emptyFunction.thatReturns = makeEmptyFunction;
 emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
 emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
 emptyFunction.thatReturnsNull = makeEmptyFunction(null);
+
 emptyFunction.thatReturnsThis = function () {
   return this;
 };
+
 emptyFunction.thatReturnsArgument = function (arg) {
   return arg;
 };
@@ -2590,12 +2579,10 @@ module.exports = emptyFunction;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -2624,6 +2611,9 @@ var defaultRecord = {
   hasFocus: false
 };
 
+/* $FlowFixMe This comment suppresses an error found when automatically adding
+ * a type annotation with the codemod Komodo/Annotate_exports. To see the error
+ * delete this comment and run Flow. */
 var SelectionStateRecord = Record(defaultRecord);
 
 var SelectionState = function (_SelectionStateRecord) {
@@ -2756,67 +2746,72 @@ module.exports = SelectionState;
  */
 
 
-
 var invariant = __webpack_require__(1);
 
 var NEUTRAL = 'NEUTRAL'; // No strong direction
+
 var LTR = 'LTR'; // Left-to-Right direction
+
 var RTL = 'RTL'; // Right-to-Left direction
 
-var globalDir = null;
-
-// == Helpers ==
+var globalDir = null; // == Helpers ==
 
 /**
  * Check if a directionality value is a Strong one
  */
+
 function isStrong(dir) {
   return dir === LTR || dir === RTL;
 }
-
 /**
  * Get string value to be used for `dir` HTML attribute or `direction` CSS
  * property.
  */
+
+
 function getHTMLDir(dir) {
   !isStrong(dir) ?  true ? invariant(false, '`dir` must be a strong direction to be converted to HTML Direction') : invariant(false) : void 0;
   return dir === LTR ? 'ltr' : 'rtl';
 }
-
 /**
  * Get string value to be used for `dir` HTML attribute or `direction` CSS
  * property, but returns null if `dir` has same value as `otherDir`.
  * `null`.
  */
+
+
 function getHTMLDirIfDifferent(dir, otherDir) {
   !isStrong(dir) ?  true ? invariant(false, '`dir` must be a strong direction to be converted to HTML Direction') : invariant(false) : void 0;
   !isStrong(otherDir) ?  true ? invariant(false, '`otherDir` must be a strong direction to be converted to HTML Direction') : invariant(false) : void 0;
   return dir === otherDir ? null : getHTMLDir(dir);
-}
-
-// == Global Direction ==
+} // == Global Direction ==
 
 /**
  * Set the global direction.
  */
+
+
 function setGlobalDir(dir) {
   globalDir = dir;
 }
-
 /**
  * Initialize the global direction
  */
+
+
 function initGlobalDir() {
   setGlobalDir(LTR);
 }
-
 /**
  * Get the global direction
  */
+
+
 function getGlobalDir() {
   if (!globalDir) {
     this.initGlobalDir();
   }
+
   !globalDir ?  true ? invariant(false, 'Global direction not set.') : invariant(false) : void 0;
   return globalDir;
 }
@@ -2835,7 +2830,6 @@ var UnicodeBidiDirection = {
   initGlobalDir: initGlobalDir,
   getGlobalDir: getGlobalDir
 };
-
 module.exports = UnicodeBidiDirection;
 
 /***/ }),
@@ -2844,12 +2838,10 @@ module.exports = UnicodeBidiDirection;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -2929,22 +2921,23 @@ module.exports = DefaultDraftBlockRenderMap;
  *
  * @typechecks
  */
-
 var getStyleProperty = __webpack_require__(106);
-
 /**
  * @param {DOMNode} element [description]
  * @param {string} name Overflow style property name.
  * @return {boolean} True if the supplied ndoe is scrollable.
  */
+
+
 function _isNodeScrollable(element, name) {
   var overflow = Style.get(element, name);
   return overflow === 'auto' || overflow === 'scroll';
 }
-
 /**
  * Utilities for querying and mutating style properties.
  */
+
+
 var Style = {
   /**
    * Gets the style property for the supplied node. This will return either the
@@ -2968,18 +2961,20 @@ var Style = {
     if (!node) {
       return null;
     }
+
     var ownerDocument = node.ownerDocument;
+
     while (node && node !== ownerDocument.body) {
       if (_isNodeScrollable(node, 'overflow') || _isNodeScrollable(node, 'overflowY') || _isNodeScrollable(node, 'overflowX')) {
         return node;
       }
+
       node = node.parentNode;
     }
+
     return ownerDocument.defaultView || ownerDocument.parentWindow;
   }
-
 };
-
 module.exports = Style;
 
 /***/ }),
@@ -2997,10 +2992,9 @@ module.exports = Style;
  */
 
 
-
 var getDocumentScrollElement = __webpack_require__(110);
-var getUnboundedScrollPosition = __webpack_require__(111);
 
+var getUnboundedScrollPosition = __webpack_require__(111);
 /**
  * Gets the scroll position of the supplied element or window.
  *
@@ -3013,21 +3007,21 @@ var getUnboundedScrollPosition = __webpack_require__(111);
  * @param {DOMWindow|DOMElement} scrollable
  * @return {object} Map with `x` and `y` keys.
  */
+
+
 function getScrollPosition(scrollable) {
   var documentScrollElement = getDocumentScrollElement(scrollable.ownerDocument || scrollable.document);
+
   if (scrollable.Window && scrollable instanceof scrollable.Window) {
     scrollable = documentScrollElement;
   }
+
   var scrollPosition = getUnboundedScrollPosition(scrollable);
-
   var viewport = scrollable === documentScrollElement ? scrollable.ownerDocument.documentElement : scrollable;
-
   var xMax = scrollable.scrollWidth - viewport.clientWidth;
   var yMax = scrollable.scrollHeight - viewport.clientHeight;
-
   scrollPosition.x = Math.max(0, Math.min(scrollPosition.x, xMax));
   scrollPosition.y = Math.max(0, Math.min(scrollPosition.y, yMax));
-
   return scrollPosition;
 }
 
@@ -3039,12 +3033,10 @@ module.exports = getScrollPosition;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -3240,12 +3232,10 @@ module.exports = ContentState;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict
@@ -3286,7 +3276,6 @@ module.exports = sanitizeDraftText;
  */
 
 
-
 var UnicodeBidiDirection = __webpack_require__(26);
 
 var invariant = __webpack_require__(1);
@@ -3300,30 +3289,23 @@ var invariant = __webpack_require__(1);
  *       Basic Multilingual Plane (BMP) for now.
  */
 var RANGE_BY_BIDI_TYPE = {
-
-  L: 'A-Za-z\xAA\xB5\xBA\xC0-\xD6\xD8-\xF6\xF8-\u01BA\u01BB' + '\u01BC-\u01BF\u01C0-\u01C3\u01C4-\u0293\u0294\u0295-\u02AF\u02B0-\u02B8' + '\u02BB-\u02C1\u02D0-\u02D1\u02E0-\u02E4\u02EE\u0370-\u0373\u0376-\u0377' + '\u037A\u037B-\u037D\u037F\u0386\u0388-\u038A\u038C\u038E-\u03A1' + '\u03A3-\u03F5\u03F7-\u0481\u0482\u048A-\u052F\u0531-\u0556\u0559' + '\u055A-\u055F\u0561-\u0587\u0589\u0903\u0904-\u0939\u093B\u093D' + '\u093E-\u0940\u0949-\u094C\u094E-\u094F\u0950\u0958-\u0961\u0964-\u0965' + '\u0966-\u096F\u0970\u0971\u0972-\u0980\u0982-\u0983\u0985-\u098C' + '\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD' + '\u09BE-\u09C0\u09C7-\u09C8\u09CB-\u09CC\u09CE\u09D7\u09DC-\u09DD' + '\u09DF-\u09E1\u09E6-\u09EF\u09F0-\u09F1\u09F4-\u09F9\u09FA\u0A03' + '\u0A05-\u0A0A\u0A0F-\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32-\u0A33' + '\u0A35-\u0A36\u0A38-\u0A39\u0A3E-\u0A40\u0A59-\u0A5C\u0A5E\u0A66-\u0A6F' + '\u0A72-\u0A74\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0' + '\u0AB2-\u0AB3\u0AB5-\u0AB9\u0ABD\u0ABE-\u0AC0\u0AC9\u0ACB-\u0ACC\u0AD0' + '\u0AE0-\u0AE1\u0AE6-\u0AEF\u0AF0\u0B02-\u0B03\u0B05-\u0B0C\u0B0F-\u0B10' + '\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3D\u0B3E\u0B40' + '\u0B47-\u0B48\u0B4B-\u0B4C\u0B57\u0B5C-\u0B5D\u0B5F-\u0B61\u0B66-\u0B6F' + '\u0B70\u0B71\u0B72-\u0B77\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95' + '\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9' + '\u0BBE-\u0BBF\u0BC1-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCC\u0BD0\u0BD7' + '\u0BE6-\u0BEF\u0BF0-\u0BF2\u0C01-\u0C03\u0C05-\u0C0C\u0C0E-\u0C10' + '\u0C12-\u0C28\u0C2A-\u0C39\u0C3D\u0C41-\u0C44\u0C58-\u0C59\u0C60-\u0C61' + '\u0C66-\u0C6F\u0C7F\u0C82-\u0C83\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8' + '\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CBE\u0CBF\u0CC0-\u0CC4\u0CC6' + '\u0CC7-\u0CC8\u0CCA-\u0CCB\u0CD5-\u0CD6\u0CDE\u0CE0-\u0CE1\u0CE6-\u0CEF' + '\u0CF1-\u0CF2\u0D02-\u0D03\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D' + '\u0D3E-\u0D40\u0D46-\u0D48\u0D4A-\u0D4C\u0D4E\u0D57\u0D60-\u0D61' + '\u0D66-\u0D6F\u0D70-\u0D75\u0D79\u0D7A-\u0D7F\u0D82-\u0D83\u0D85-\u0D96' + '\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0DCF-\u0DD1\u0DD8-\u0DDF' + '\u0DE6-\u0DEF\u0DF2-\u0DF3\u0DF4\u0E01-\u0E30\u0E32-\u0E33\u0E40-\u0E45' + '\u0E46\u0E4F\u0E50-\u0E59\u0E5A-\u0E5B\u0E81-\u0E82\u0E84\u0E87-\u0E88' + '\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7' + '\u0EAA-\u0EAB\u0EAD-\u0EB0\u0EB2-\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6' + '\u0ED0-\u0ED9\u0EDC-\u0EDF\u0F00\u0F01-\u0F03\u0F04-\u0F12\u0F13\u0F14' + '\u0F15-\u0F17\u0F1A-\u0F1F\u0F20-\u0F29\u0F2A-\u0F33\u0F34\u0F36\u0F38' + '\u0F3E-\u0F3F\u0F40-\u0F47\u0F49-\u0F6C\u0F7F\u0F85\u0F88-\u0F8C' + '\u0FBE-\u0FC5\u0FC7-\u0FCC\u0FCE-\u0FCF\u0FD0-\u0FD4\u0FD5-\u0FD8' + '\u0FD9-\u0FDA\u1000-\u102A\u102B-\u102C\u1031\u1038\u103B-\u103C\u103F' + '\u1040-\u1049\u104A-\u104F\u1050-\u1055\u1056-\u1057\u105A-\u105D\u1061' + '\u1062-\u1064\u1065-\u1066\u1067-\u106D\u106E-\u1070\u1075-\u1081' + '\u1083-\u1084\u1087-\u108C\u108E\u108F\u1090-\u1099\u109A-\u109C' + '\u109E-\u109F\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FB\u10FC' + '\u10FD-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288' + '\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5' + '\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1360-\u1368' + '\u1369-\u137C\u1380-\u138F\u13A0-\u13F4\u1401-\u166C\u166D-\u166E' + '\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u16EB-\u16ED\u16EE-\u16F0' + '\u16F1-\u16F8\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1735-\u1736' + '\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17B6\u17BE-\u17C5' + '\u17C7-\u17C8\u17D4-\u17D6\u17D7\u17D8-\u17DA\u17DC\u17E0-\u17E9' + '\u1810-\u1819\u1820-\u1842\u1843\u1844-\u1877\u1880-\u18A8\u18AA' + '\u18B0-\u18F5\u1900-\u191E\u1923-\u1926\u1929-\u192B\u1930-\u1931' + '\u1933-\u1938\u1946-\u194F\u1950-\u196D\u1970-\u1974\u1980-\u19AB' + '\u19B0-\u19C0\u19C1-\u19C7\u19C8-\u19C9\u19D0-\u19D9\u19DA\u1A00-\u1A16' + '\u1A19-\u1A1A\u1A1E-\u1A1F\u1A20-\u1A54\u1A55\u1A57\u1A61\u1A63-\u1A64' + '\u1A6D-\u1A72\u1A80-\u1A89\u1A90-\u1A99\u1AA0-\u1AA6\u1AA7\u1AA8-\u1AAD' + '\u1B04\u1B05-\u1B33\u1B35\u1B3B\u1B3D-\u1B41\u1B43-\u1B44\u1B45-\u1B4B' + '\u1B50-\u1B59\u1B5A-\u1B60\u1B61-\u1B6A\u1B74-\u1B7C\u1B82\u1B83-\u1BA0' + '\u1BA1\u1BA6-\u1BA7\u1BAA\u1BAE-\u1BAF\u1BB0-\u1BB9\u1BBA-\u1BE5\u1BE7' + '\u1BEA-\u1BEC\u1BEE\u1BF2-\u1BF3\u1BFC-\u1BFF\u1C00-\u1C23\u1C24-\u1C2B' + '\u1C34-\u1C35\u1C3B-\u1C3F\u1C40-\u1C49\u1C4D-\u1C4F\u1C50-\u1C59' + '\u1C5A-\u1C77\u1C78-\u1C7D\u1C7E-\u1C7F\u1CC0-\u1CC7\u1CD3\u1CE1' + '\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF2-\u1CF3\u1CF5-\u1CF6\u1D00-\u1D2B' + '\u1D2C-\u1D6A\u1D6B-\u1D77\u1D78\u1D79-\u1D9A\u1D9B-\u1DBF\u1E00-\u1F15' + '\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D' + '\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC' + '\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u200E' + '\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D' + '\u2124\u2126\u2128\u212A-\u212D\u212F-\u2134\u2135-\u2138\u2139' + '\u213C-\u213F\u2145-\u2149\u214E\u214F\u2160-\u2182\u2183-\u2184' + '\u2185-\u2188\u2336-\u237A\u2395\u249C-\u24E9\u26AC\u2800-\u28FF' + '\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2C7B\u2C7C-\u2C7D\u2C7E-\u2CE4' + '\u2CEB-\u2CEE\u2CF2-\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F' + '\u2D70\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE' + '\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u3005\u3006\u3007' + '\u3021-\u3029\u302E-\u302F\u3031-\u3035\u3038-\u303A\u303B\u303C' + '\u3041-\u3096\u309D-\u309E\u309F\u30A1-\u30FA\u30FC-\u30FE\u30FF' + '\u3105-\u312D\u3131-\u318E\u3190-\u3191\u3192-\u3195\u3196-\u319F' + '\u31A0-\u31BA\u31F0-\u31FF\u3200-\u321C\u3220-\u3229\u322A-\u3247' + '\u3248-\u324F\u3260-\u327B\u327F\u3280-\u3289\u328A-\u32B0\u32C0-\u32CB' + '\u32D0-\u32FE\u3300-\u3376\u337B-\u33DD\u33E0-\u33FE\u3400-\u4DB5' + '\u4E00-\u9FCC\uA000-\uA014\uA015\uA016-\uA48C\uA4D0-\uA4F7\uA4F8-\uA4FD' + '\uA4FE-\uA4FF\uA500-\uA60B\uA60C\uA610-\uA61F\uA620-\uA629\uA62A-\uA62B' + '\uA640-\uA66D\uA66E\uA680-\uA69B\uA69C-\uA69D\uA6A0-\uA6E5\uA6E6-\uA6EF' + '\uA6F2-\uA6F7\uA722-\uA76F\uA770\uA771-\uA787\uA789-\uA78A\uA78B-\uA78E' + '\uA790-\uA7AD\uA7B0-\uA7B1\uA7F7\uA7F8-\uA7F9\uA7FA\uA7FB-\uA801' + '\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA823-\uA824\uA827\uA830-\uA835' + '\uA836-\uA837\uA840-\uA873\uA880-\uA881\uA882-\uA8B3\uA8B4-\uA8C3' + '\uA8CE-\uA8CF\uA8D0-\uA8D9\uA8F2-\uA8F7\uA8F8-\uA8FA\uA8FB\uA900-\uA909' + '\uA90A-\uA925\uA92E-\uA92F\uA930-\uA946\uA952-\uA953\uA95F\uA960-\uA97C' + '\uA983\uA984-\uA9B2\uA9B4-\uA9B5\uA9BA-\uA9BB\uA9BD-\uA9C0\uA9C1-\uA9CD' + '\uA9CF\uA9D0-\uA9D9\uA9DE-\uA9DF\uA9E0-\uA9E4\uA9E6\uA9E7-\uA9EF' + '\uA9F0-\uA9F9\uA9FA-\uA9FE\uAA00-\uAA28\uAA2F-\uAA30\uAA33-\uAA34' + '\uAA40-\uAA42\uAA44-\uAA4B\uAA4D\uAA50-\uAA59\uAA5C-\uAA5F\uAA60-\uAA6F' + '\uAA70\uAA71-\uAA76\uAA77-\uAA79\uAA7A\uAA7B\uAA7D\uAA7E-\uAAAF\uAAB1' + '\uAAB5-\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADC\uAADD\uAADE-\uAADF' + '\uAAE0-\uAAEA\uAAEB\uAAEE-\uAAEF\uAAF0-\uAAF1\uAAF2\uAAF3-\uAAF4\uAAF5' + '\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E' + '\uAB30-\uAB5A\uAB5B\uAB5C-\uAB5F\uAB64-\uAB65\uABC0-\uABE2\uABE3-\uABE4' + '\uABE6-\uABE7\uABE9-\uABEA\uABEB\uABEC\uABF0-\uABF9\uAC00-\uD7A3' + '\uD7B0-\uD7C6\uD7CB-\uD7FB\uE000-\uF8FF\uF900-\uFA6D\uFA70-\uFAD9' + '\uFB00-\uFB06\uFB13-\uFB17\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFF6F\uFF70' + '\uFF71-\uFF9D\uFF9E-\uFF9F\uFFA0-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF' + '\uFFD2-\uFFD7\uFFDA-\uFFDC',
-
-  R: '\u0590\u05BE\u05C0\u05C3\u05C6\u05C8-\u05CF\u05D0-\u05EA\u05EB-\u05EF' + '\u05F0-\u05F2\u05F3-\u05F4\u05F5-\u05FF\u07C0-\u07C9\u07CA-\u07EA' + '\u07F4-\u07F5\u07FA\u07FB-\u07FF\u0800-\u0815\u081A\u0824\u0828' + '\u082E-\u082F\u0830-\u083E\u083F\u0840-\u0858\u085C-\u085D\u085E' + '\u085F-\u089F\u200F\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB37\uFB38-\uFB3C' + '\uFB3D\uFB3E\uFB3F\uFB40-\uFB41\uFB42\uFB43-\uFB44\uFB45\uFB46-\uFB4F',
-
-  AL: '\u0608\u060B\u060D\u061B\u061C\u061D\u061E-\u061F\u0620-\u063F\u0640' + '\u0641-\u064A\u066D\u066E-\u066F\u0671-\u06D3\u06D4\u06D5\u06E5-\u06E6' + '\u06EE-\u06EF\u06FA-\u06FC\u06FD-\u06FE\u06FF\u0700-\u070D\u070E\u070F' + '\u0710\u0712-\u072F\u074B-\u074C\u074D-\u07A5\u07B1\u07B2-\u07BF' + '\u08A0-\u08B2\u08B3-\u08E3\uFB50-\uFBB1\uFBB2-\uFBC1\uFBC2-\uFBD2' + '\uFBD3-\uFD3D\uFD40-\uFD4F\uFD50-\uFD8F\uFD90-\uFD91\uFD92-\uFDC7' + '\uFDC8-\uFDCF\uFDF0-\uFDFB\uFDFC\uFDFE-\uFDFF\uFE70-\uFE74\uFE75' + '\uFE76-\uFEFC\uFEFD-\uFEFE'
-
+  L: "A-Za-z\xAA\xB5\xBA\xC0-\xD6\xD8-\xF6\xF8-\u01BA\u01BB" + "\u01BC-\u01BF\u01C0-\u01C3\u01C4-\u0293\u0294\u0295-\u02AF\u02B0-\u02B8" + "\u02BB-\u02C1\u02D0-\u02D1\u02E0-\u02E4\u02EE\u0370-\u0373\u0376-\u0377" + "\u037A\u037B-\u037D\u037F\u0386\u0388-\u038A\u038C\u038E-\u03A1" + "\u03A3-\u03F5\u03F7-\u0481\u0482\u048A-\u052F\u0531-\u0556\u0559" + "\u055A-\u055F\u0561-\u0587\u0589\u0903\u0904-\u0939\u093B\u093D" + "\u093E-\u0940\u0949-\u094C\u094E-\u094F\u0950\u0958-\u0961\u0964-\u0965" + "\u0966-\u096F\u0970\u0971\u0972-\u0980\u0982-\u0983\u0985-\u098C" + "\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09BD" + "\u09BE-\u09C0\u09C7-\u09C8\u09CB-\u09CC\u09CE\u09D7\u09DC-\u09DD" + "\u09DF-\u09E1\u09E6-\u09EF\u09F0-\u09F1\u09F4-\u09F9\u09FA\u0A03" + "\u0A05-\u0A0A\u0A0F-\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32-\u0A33" + "\u0A35-\u0A36\u0A38-\u0A39\u0A3E-\u0A40\u0A59-\u0A5C\u0A5E\u0A66-\u0A6F" + "\u0A72-\u0A74\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0" + "\u0AB2-\u0AB3\u0AB5-\u0AB9\u0ABD\u0ABE-\u0AC0\u0AC9\u0ACB-\u0ACC\u0AD0" + "\u0AE0-\u0AE1\u0AE6-\u0AEF\u0AF0\u0B02-\u0B03\u0B05-\u0B0C\u0B0F-\u0B10" + "\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3D\u0B3E\u0B40" + "\u0B47-\u0B48\u0B4B-\u0B4C\u0B57\u0B5C-\u0B5D\u0B5F-\u0B61\u0B66-\u0B6F" + "\u0B70\u0B71\u0B72-\u0B77\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95" + "\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB9" + "\u0BBE-\u0BBF\u0BC1-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCC\u0BD0\u0BD7" + "\u0BE6-\u0BEF\u0BF0-\u0BF2\u0C01-\u0C03\u0C05-\u0C0C\u0C0E-\u0C10" + "\u0C12-\u0C28\u0C2A-\u0C39\u0C3D\u0C41-\u0C44\u0C58-\u0C59\u0C60-\u0C61" + "\u0C66-\u0C6F\u0C7F\u0C82-\u0C83\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8" + "\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CBD\u0CBE\u0CBF\u0CC0-\u0CC4\u0CC6" + "\u0CC7-\u0CC8\u0CCA-\u0CCB\u0CD5-\u0CD6\u0CDE\u0CE0-\u0CE1\u0CE6-\u0CEF" + "\u0CF1-\u0CF2\u0D02-\u0D03\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D3A\u0D3D" + "\u0D3E-\u0D40\u0D46-\u0D48\u0D4A-\u0D4C\u0D4E\u0D57\u0D60-\u0D61" + "\u0D66-\u0D6F\u0D70-\u0D75\u0D79\u0D7A-\u0D7F\u0D82-\u0D83\u0D85-\u0D96" + "\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0-\u0DC6\u0DCF-\u0DD1\u0DD8-\u0DDF" + "\u0DE6-\u0DEF\u0DF2-\u0DF3\u0DF4\u0E01-\u0E30\u0E32-\u0E33\u0E40-\u0E45" + "\u0E46\u0E4F\u0E50-\u0E59\u0E5A-\u0E5B\u0E81-\u0E82\u0E84\u0E87-\u0E88" + "\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7" + "\u0EAA-\u0EAB\u0EAD-\u0EB0\u0EB2-\u0EB3\u0EBD\u0EC0-\u0EC4\u0EC6" + "\u0ED0-\u0ED9\u0EDC-\u0EDF\u0F00\u0F01-\u0F03\u0F04-\u0F12\u0F13\u0F14" + "\u0F15-\u0F17\u0F1A-\u0F1F\u0F20-\u0F29\u0F2A-\u0F33\u0F34\u0F36\u0F38" + "\u0F3E-\u0F3F\u0F40-\u0F47\u0F49-\u0F6C\u0F7F\u0F85\u0F88-\u0F8C" + "\u0FBE-\u0FC5\u0FC7-\u0FCC\u0FCE-\u0FCF\u0FD0-\u0FD4\u0FD5-\u0FD8" + "\u0FD9-\u0FDA\u1000-\u102A\u102B-\u102C\u1031\u1038\u103B-\u103C\u103F" + "\u1040-\u1049\u104A-\u104F\u1050-\u1055\u1056-\u1057\u105A-\u105D\u1061" + "\u1062-\u1064\u1065-\u1066\u1067-\u106D\u106E-\u1070\u1075-\u1081" + "\u1083-\u1084\u1087-\u108C\u108E\u108F\u1090-\u1099\u109A-\u109C" + "\u109E-\u109F\u10A0-\u10C5\u10C7\u10CD\u10D0-\u10FA\u10FB\u10FC" + "\u10FD-\u1248\u124A-\u124D\u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288" + "\u128A-\u128D\u1290-\u12B0\u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5" + "\u12C8-\u12D6\u12D8-\u1310\u1312-\u1315\u1318-\u135A\u1360-\u1368" + "\u1369-\u137C\u1380-\u138F\u13A0-\u13F4\u1401-\u166C\u166D-\u166E" + "\u166F-\u167F\u1681-\u169A\u16A0-\u16EA\u16EB-\u16ED\u16EE-\u16F0" + "\u16F1-\u16F8\u1700-\u170C\u170E-\u1711\u1720-\u1731\u1735-\u1736" + "\u1740-\u1751\u1760-\u176C\u176E-\u1770\u1780-\u17B3\u17B6\u17BE-\u17C5" + "\u17C7-\u17C8\u17D4-\u17D6\u17D7\u17D8-\u17DA\u17DC\u17E0-\u17E9" + "\u1810-\u1819\u1820-\u1842\u1843\u1844-\u1877\u1880-\u18A8\u18AA" + "\u18B0-\u18F5\u1900-\u191E\u1923-\u1926\u1929-\u192B\u1930-\u1931" + "\u1933-\u1938\u1946-\u194F\u1950-\u196D\u1970-\u1974\u1980-\u19AB" + "\u19B0-\u19C0\u19C1-\u19C7\u19C8-\u19C9\u19D0-\u19D9\u19DA\u1A00-\u1A16" + "\u1A19-\u1A1A\u1A1E-\u1A1F\u1A20-\u1A54\u1A55\u1A57\u1A61\u1A63-\u1A64" + "\u1A6D-\u1A72\u1A80-\u1A89\u1A90-\u1A99\u1AA0-\u1AA6\u1AA7\u1AA8-\u1AAD" + "\u1B04\u1B05-\u1B33\u1B35\u1B3B\u1B3D-\u1B41\u1B43-\u1B44\u1B45-\u1B4B" + "\u1B50-\u1B59\u1B5A-\u1B60\u1B61-\u1B6A\u1B74-\u1B7C\u1B82\u1B83-\u1BA0" + "\u1BA1\u1BA6-\u1BA7\u1BAA\u1BAE-\u1BAF\u1BB0-\u1BB9\u1BBA-\u1BE5\u1BE7" + "\u1BEA-\u1BEC\u1BEE\u1BF2-\u1BF3\u1BFC-\u1BFF\u1C00-\u1C23\u1C24-\u1C2B" + "\u1C34-\u1C35\u1C3B-\u1C3F\u1C40-\u1C49\u1C4D-\u1C4F\u1C50-\u1C59" + "\u1C5A-\u1C77\u1C78-\u1C7D\u1C7E-\u1C7F\u1CC0-\u1CC7\u1CD3\u1CE1" + "\u1CE9-\u1CEC\u1CEE-\u1CF1\u1CF2-\u1CF3\u1CF5-\u1CF6\u1D00-\u1D2B" + "\u1D2C-\u1D6A\u1D6B-\u1D77\u1D78\u1D79-\u1D9A\u1D9B-\u1DBF\u1E00-\u1F15" + "\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D" + "\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC" + "\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u200E" + "\u2071\u207F\u2090-\u209C\u2102\u2107\u210A-\u2113\u2115\u2119-\u211D" + "\u2124\u2126\u2128\u212A-\u212D\u212F-\u2134\u2135-\u2138\u2139" + "\u213C-\u213F\u2145-\u2149\u214E\u214F\u2160-\u2182\u2183-\u2184" + "\u2185-\u2188\u2336-\u237A\u2395\u249C-\u24E9\u26AC\u2800-\u28FF" + "\u2C00-\u2C2E\u2C30-\u2C5E\u2C60-\u2C7B\u2C7C-\u2C7D\u2C7E-\u2CE4" + "\u2CEB-\u2CEE\u2CF2-\u2CF3\u2D00-\u2D25\u2D27\u2D2D\u2D30-\u2D67\u2D6F" + "\u2D70\u2D80-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0-\u2DB6\u2DB8-\u2DBE" + "\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8-\u2DDE\u3005\u3006\u3007" + "\u3021-\u3029\u302E-\u302F\u3031-\u3035\u3038-\u303A\u303B\u303C" + "\u3041-\u3096\u309D-\u309E\u309F\u30A1-\u30FA\u30FC-\u30FE\u30FF" + "\u3105-\u312D\u3131-\u318E\u3190-\u3191\u3192-\u3195\u3196-\u319F" + "\u31A0-\u31BA\u31F0-\u31FF\u3200-\u321C\u3220-\u3229\u322A-\u3247" + "\u3248-\u324F\u3260-\u327B\u327F\u3280-\u3289\u328A-\u32B0\u32C0-\u32CB" + "\u32D0-\u32FE\u3300-\u3376\u337B-\u33DD\u33E0-\u33FE\u3400-\u4DB5" + "\u4E00-\u9FCC\uA000-\uA014\uA015\uA016-\uA48C\uA4D0-\uA4F7\uA4F8-\uA4FD" + "\uA4FE-\uA4FF\uA500-\uA60B\uA60C\uA610-\uA61F\uA620-\uA629\uA62A-\uA62B" + "\uA640-\uA66D\uA66E\uA680-\uA69B\uA69C-\uA69D\uA6A0-\uA6E5\uA6E6-\uA6EF" + "\uA6F2-\uA6F7\uA722-\uA76F\uA770\uA771-\uA787\uA789-\uA78A\uA78B-\uA78E" + "\uA790-\uA7AD\uA7B0-\uA7B1\uA7F7\uA7F8-\uA7F9\uA7FA\uA7FB-\uA801" + "\uA803-\uA805\uA807-\uA80A\uA80C-\uA822\uA823-\uA824\uA827\uA830-\uA835" + "\uA836-\uA837\uA840-\uA873\uA880-\uA881\uA882-\uA8B3\uA8B4-\uA8C3" + "\uA8CE-\uA8CF\uA8D0-\uA8D9\uA8F2-\uA8F7\uA8F8-\uA8FA\uA8FB\uA900-\uA909" + "\uA90A-\uA925\uA92E-\uA92F\uA930-\uA946\uA952-\uA953\uA95F\uA960-\uA97C" + "\uA983\uA984-\uA9B2\uA9B4-\uA9B5\uA9BA-\uA9BB\uA9BD-\uA9C0\uA9C1-\uA9CD" + "\uA9CF\uA9D0-\uA9D9\uA9DE-\uA9DF\uA9E0-\uA9E4\uA9E6\uA9E7-\uA9EF" + "\uA9F0-\uA9F9\uA9FA-\uA9FE\uAA00-\uAA28\uAA2F-\uAA30\uAA33-\uAA34" + "\uAA40-\uAA42\uAA44-\uAA4B\uAA4D\uAA50-\uAA59\uAA5C-\uAA5F\uAA60-\uAA6F" + "\uAA70\uAA71-\uAA76\uAA77-\uAA79\uAA7A\uAA7B\uAA7D\uAA7E-\uAAAF\uAAB1" + "\uAAB5-\uAAB6\uAAB9-\uAABD\uAAC0\uAAC2\uAADB-\uAADC\uAADD\uAADE-\uAADF" + "\uAAE0-\uAAEA\uAAEB\uAAEE-\uAAEF\uAAF0-\uAAF1\uAAF2\uAAF3-\uAAF4\uAAF5" + "\uAB01-\uAB06\uAB09-\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E" + "\uAB30-\uAB5A\uAB5B\uAB5C-\uAB5F\uAB64-\uAB65\uABC0-\uABE2\uABE3-\uABE4" + "\uABE6-\uABE7\uABE9-\uABEA\uABEB\uABEC\uABF0-\uABF9\uAC00-\uD7A3" + "\uD7B0-\uD7C6\uD7CB-\uD7FB\uE000-\uF8FF\uF900-\uFA6D\uFA70-\uFAD9" + "\uFB00-\uFB06\uFB13-\uFB17\uFF21-\uFF3A\uFF41-\uFF5A\uFF66-\uFF6F\uFF70" + "\uFF71-\uFF9D\uFF9E-\uFF9F\uFFA0-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF" + "\uFFD2-\uFFD7\uFFDA-\uFFDC",
+  R: "\u0590\u05BE\u05C0\u05C3\u05C6\u05C8-\u05CF\u05D0-\u05EA\u05EB-\u05EF" + "\u05F0-\u05F2\u05F3-\u05F4\u05F5-\u05FF\u07C0-\u07C9\u07CA-\u07EA" + "\u07F4-\u07F5\u07FA\u07FB-\u07FF\u0800-\u0815\u081A\u0824\u0828" + "\u082E-\u082F\u0830-\u083E\u083F\u0840-\u0858\u085C-\u085D\u085E" + "\u085F-\u089F\u200F\uFB1D\uFB1F-\uFB28\uFB2A-\uFB36\uFB37\uFB38-\uFB3C" + "\uFB3D\uFB3E\uFB3F\uFB40-\uFB41\uFB42\uFB43-\uFB44\uFB45\uFB46-\uFB4F",
+  AL: "\u0608\u060B\u060D\u061B\u061C\u061D\u061E-\u061F\u0620-\u063F\u0640" + "\u0641-\u064A\u066D\u066E-\u066F\u0671-\u06D3\u06D4\u06D5\u06E5-\u06E6" + "\u06EE-\u06EF\u06FA-\u06FC\u06FD-\u06FE\u06FF\u0700-\u070D\u070E\u070F" + "\u0710\u0712-\u072F\u074B-\u074C\u074D-\u07A5\u07B1\u07B2-\u07BF" + "\u08A0-\u08B2\u08B3-\u08E3\uFB50-\uFBB1\uFBB2-\uFBC1\uFBC2-\uFBD2" + "\uFBD3-\uFD3D\uFD40-\uFD4F\uFD50-\uFD8F\uFD90-\uFD91\uFD92-\uFDC7" + "\uFDC8-\uFDCF\uFDF0-\uFDFB\uFDFC\uFDFE-\uFDFF\uFE70-\uFE74\uFE75" + "\uFE76-\uFEFC\uFEFD-\uFEFE"
 };
-
 var REGEX_STRONG = new RegExp('[' + RANGE_BY_BIDI_TYPE.L + RANGE_BY_BIDI_TYPE.R + RANGE_BY_BIDI_TYPE.AL + ']');
-
 var REGEX_RTL = new RegExp('[' + RANGE_BY_BIDI_TYPE.R + RANGE_BY_BIDI_TYPE.AL + ']');
-
 /**
  * Returns the first strong character (has Bidi_Class value of L, R, or AL).
  *
  * @param str  A text block; e.g. paragraph, table cell, tag
  * @return     A character with strong bidi direction, or null if not found
  */
+
 function firstStrongChar(str) {
   var match = REGEX_STRONG.exec(str);
   return match == null ? null : match[0];
 }
-
 /**
  * Returns the direction of a block of text, based on the direction of its
  * first strong character (has Bidi_Class value of L, R, or AL).
@@ -3331,14 +3313,17 @@ function firstStrongChar(str) {
  * @param str  A text block; e.g. paragraph, table cell, tag
  * @return     The resolved direction
  */
+
+
 function firstStrongCharDir(str) {
   var strongChar = firstStrongChar(str);
+
   if (strongChar == null) {
     return UnicodeBidiDirection.NEUTRAL;
   }
+
   return REGEX_RTL.exec(strongChar) ? UnicodeBidiDirection.RTL : UnicodeBidiDirection.LTR;
 }
-
 /**
  * Returns the direction of a block of text, based on the direction of its
  * first strong character (has Bidi_Class value of L, R, or AL), or a fallback
@@ -3352,15 +3337,18 @@ function firstStrongCharDir(str) {
  *                  for the block (default = NEUTRAL)
  * @return          The resolved direction
  */
+
+
 function resolveBlockDir(str, fallback) {
   fallback = fallback || UnicodeBidiDirection.NEUTRAL;
+
   if (!str.length) {
     return fallback;
   }
+
   var blockDir = firstStrongCharDir(str);
   return blockDir === UnicodeBidiDirection.NEUTRAL ? fallback : blockDir;
 }
-
 /**
  * Returns the direction of a block of text, based on the direction of its
  * first strong character (has Bidi_Class value of L, R, or AL), or a fallback
@@ -3379,14 +3367,16 @@ function resolveBlockDir(str, fallback) {
  *                        detected for the block (default = global direction)
  * @return                The resolved Strong direction
  */
+
+
 function getDirection(str, strongFallback) {
   if (!strongFallback) {
     strongFallback = UnicodeBidiDirection.getGlobalDir();
   }
+
   !UnicodeBidiDirection.isStrong(strongFallback) ?  true ? invariant(false, 'Fallback direction must be a strong direction') : invariant(false) : void 0;
   return resolveBlockDir(str, strongFallback);
 }
-
 /**
  * Returns true if getDirection(arguments...) returns LTR.
  *
@@ -3395,10 +3385,11 @@ function getDirection(str, strongFallback) {
  *                        detected for the block (default = global direction)
  * @return                True if the resolved direction is LTR
  */
+
+
 function isDirectionLTR(str, strongFallback) {
   return getDirection(str, strongFallback) === UnicodeBidiDirection.LTR;
 }
-
 /**
  * Returns true if getDirection(arguments...) returns RTL.
  *
@@ -3407,6 +3398,8 @@ function isDirectionLTR(str, strongFallback) {
  *                        detected for the block (default = global direction)
  * @return                True if the resolved direction is RTL
  */
+
+
 function isDirectionRTL(str, strongFallback) {
   return getDirection(str, strongFallback) === UnicodeBidiDirection.RTL;
 }
@@ -3419,7 +3412,6 @@ var UnicodeBidi = {
   isDirectionLTR: isDirectionLTR,
   isDirectionRTL: isDirectionRTL
 };
-
 module.exports = UnicodeBidi;
 
 /***/ }),
@@ -3436,7 +3428,6 @@ module.exports = UnicodeBidi;
  * LICENSE file in the root directory of this source tree.
  *
  */
-
 module.exports = {
   BACKSPACE: 8,
   TAB: 9,
@@ -3468,12 +3459,10 @@ module.exports = {
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -3541,14 +3530,14 @@ module.exports = getEntityKeyForSelection;
  *
  * 
  */
-
 var isTextNode = __webpack_require__(104);
-
 /*eslint-disable no-bitwise */
 
 /**
  * Checks if a given DOM node contains or is another DOM node.
  */
+
+
 function containsNode(outerNode, innerNode) {
   if (!outerNode || !innerNode) {
     return false;
@@ -3592,7 +3581,6 @@ module.exports = containsNode;
 function _isViewportScrollElement(element, doc) {
   return !!doc && (element === doc.documentElement || element === doc.body);
 }
-
 /**
  * Scroll Module. This class contains 4 simple static functions
  * to be used to access Element.scrollTop/scrollLeft properties.
@@ -3606,6 +3594,7 @@ function _isViewportScrollElement(element, doc) {
  *    set the 'scroll{Top,Left}' on both elements.
  */
 
+
 var Scroll = {
   /**
    * @param {DOMElement} element
@@ -3613,8 +3602,7 @@ var Scroll = {
    */
   getTop: function getTop(element) {
     var doc = element.ownerDocument;
-    return _isViewportScrollElement(element, doc) ?
-    // In practice, they will either both have the same value,
+    return _isViewportScrollElement(element, doc) ? // In practice, they will either both have the same value,
     // or one will be zero and the other will be the scroll position
     // of the viewport. So we can use `X || Y` instead of `Math.max(X, Y)`
     doc.body.scrollTop || doc.documentElement.scrollTop : element.scrollTop;
@@ -3626,6 +3614,7 @@ var Scroll = {
    */
   setTop: function setTop(element, newTop) {
     var doc = element.ownerDocument;
+
     if (_isViewportScrollElement(element, doc)) {
       doc.body.scrollTop = doc.documentElement.scrollTop = newTop;
     } else {
@@ -3648,6 +3637,7 @@ var Scroll = {
    */
   setLeft: function setLeft(element, newLeft) {
     var doc = element.ownerDocument;
+
     if (_isViewportScrollElement(element, doc)) {
       doc.body.scrollLeft = doc.documentElement.scrollLeft = newLeft;
     } else {
@@ -3655,7 +3645,6 @@ var Scroll = {
     }
   }
 };
-
 module.exports = Scroll;
 
 /***/ }),
@@ -3664,12 +3653,10 @@ module.exports = Scroll;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -3703,12 +3690,10 @@ module.exports = findAncestorOffsetKey;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -3752,12 +3737,10 @@ module.exports = KeyBindingUtil;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -3823,9 +3806,7 @@ module.exports = moveSelectionBackward;
  */
 
 
-
 var emptyFunction = __webpack_require__(24);
-
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
  * This can be used to log issues in development environments in critical
@@ -3833,48 +3814,42 @@ var emptyFunction = __webpack_require__(24);
  * same logic and follow the same code paths.
  */
 
-var warning = emptyFunction;
 
-if (true) {
-  var printWarning = function printWarning(format) {
-    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
+function printWarning(format) {
+  for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    args[_key - 1] = arguments[_key];
+  }
 
-    var argIndex = 0;
-    var message = 'Warning: ' + format.replace(/%s/g, function () {
-      return args[argIndex++];
-    });
-    if (typeof console !== 'undefined') {
-      console.error(message);
-    }
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {}
-  };
+  var argIndex = 0;
+  var message = 'Warning: ' + format.replace(/%s/g, function () {
+    return args[argIndex++];
+  });
 
-  warning = function warning(condition, format) {
-    if (format === undefined) {
-      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-    }
+  if (typeof console !== 'undefined') {
+    console.error(message);
+  }
 
-    if (format.indexOf('Failed Composite propType: ') === 0) {
-      return; // Ignore CompositeComponent proptype check.
-    }
-
-    if (!condition) {
-      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-        args[_key2 - 2] = arguments[_key2];
-      }
-
-      printWarning.apply(undefined, [format].concat(args));
-    }
-  };
+  try {
+    // --- Welcome to debugging React ---
+    // This error was thrown as a convenience so that you can use this stack
+    // to find the callsite that caused this warning to fire.
+    throw new Error(message);
+  } catch (x) {}
 }
 
+var warning =  true ? function (condition, format) {
+  if (format === undefined) {
+    throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+  }
+
+  if (!condition) {
+    for (var _len2 = arguments.length, args = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+      args[_key2 - 2] = arguments[_key2];
+    }
+
+    printWarning.apply(void 0, [format].concat(args));
+  }
+} : emptyFunction;
 module.exports = warning;
 
 /***/ }),
@@ -3883,12 +3858,10 @@ module.exports = warning;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -3928,12 +3901,10 @@ module.exports = getSafeBodyFromHTML;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -4047,12 +4018,10 @@ module.exports = randomizeBlockMapKeys;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -4172,12 +4141,10 @@ module.exports = removeEntitiesAtEdges;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -4214,12 +4181,10 @@ module.exports = insertIntoList;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -4260,12 +4225,10 @@ module.exports = modifyBlockForContentState;
 
 
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -4317,12 +4280,10 @@ module.exports = getNextDelimiterBlockKey;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @legacyServerCallableInstance
  * @format
@@ -4393,12 +4354,10 @@ module.exports = DraftEntityInstance;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict
@@ -4436,12 +4395,10 @@ module.exports = {
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -4490,12 +4447,10 @@ module.exports = isSelectionAtLeafStart;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -4670,12 +4625,10 @@ module.exports = DraftEditorLeaf;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -4692,12 +4645,10 @@ module.exports = {
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  */
 
@@ -4740,11 +4691,15 @@ module.exports = {
  * @param {?DOMDocument} doc Defaults to current document.
  * @return {?DOMElement}
  */
-function getActiveElement(doc) /*?DOMElement*/{
+function getActiveElement(doc)
+/*?DOMElement*/
+{
   doc = doc || (typeof document !== 'undefined' ? document : undefined);
+
   if (typeof doc === 'undefined') {
     return null;
   }
+
   try {
     return doc.activeElement || doc.body;
   } catch (e) {
@@ -4769,9 +4724,7 @@ module.exports = getActiveElement;
  *
  * @typechecks
  */
-
 var getElementRect = __webpack_require__(109);
-
 /**
  * Gets an element's position in pixels relative to the viewport. The returned
  * object represents the position of the element's top left corner.
@@ -4779,6 +4732,8 @@ var getElementRect = __webpack_require__(109);
  * @param {DOMElement} element
  * @return {object}
  */
+
+
 function getElementPosition(element) {
   var rect = getElementRect(element);
   return {
@@ -4798,8 +4753,18 @@ module.exports = getElementPosition;
 "use strict";
 
 
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * 
+ * @typechecks
+ */
 function getViewportWidth() {
-  var width = void 0;
+  var width;
+
   if (document.documentElement) {
     width = document.documentElement.clientWidth;
   }
@@ -4809,18 +4774,11 @@ function getViewportWidth() {
   }
 
   return width || 0;
-} /**
-   * Copyright (c) 2013-present, Facebook, Inc.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   *
-   * 
-   * @typechecks
-   */
+}
 
 function getViewportHeight() {
-  var height = void 0;
+  var height;
+
   if (document.documentElement) {
     height = document.documentElement.clientHeight;
   }
@@ -4831,20 +4789,22 @@ function getViewportHeight() {
 
   return height || 0;
 }
-
 /**
  * Gets the viewport dimensions including any scrollbars.
  */
+
+
 function getViewportDimensions() {
   return {
     width: window.innerWidth || getViewportWidth(),
     height: window.innerHeight || getViewportHeight()
   };
 }
-
 /**
  * Gets the viewport dimensions excluding any scrollbars.
  */
+
+
 getViewportDimensions.withoutScrollbars = function () {
   return {
     width: getViewportWidth(),
@@ -4860,12 +4820,10 @@ module.exports = getViewportDimensions;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -5082,8 +5040,6 @@ module.exports = DraftEditorBlock;
 "use strict";
 
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -5092,45 +5048,42 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  *
  * @typechecks
  */
-
 var PhotosMimeType = __webpack_require__(115);
 
 var createArrayFromMixed = __webpack_require__(116);
+
 var emptyFunction = __webpack_require__(24);
 
-var CR_LF_REGEX = new RegExp('\r\n', 'g');
-var LF_ONLY = '\n';
-
+var CR_LF_REGEX = new RegExp("\r\n", 'g');
+var LF_ONLY = "\n";
 var RICH_TEXT_TYPES = {
   'text/rtf': 1,
   'text/html': 1
 };
-
 /**
  * If DataTransferItem is a file then return the Blob of data.
  *
  * @param {object} item
  * @return {?blob}
  */
+
 function getFileFromDataTransfer(item) {
   if (item.kind == 'file') {
     return item.getAsFile();
   }
 }
 
-var DataTransfer = function () {
+var DataTransfer =
+/*#__PURE__*/
+function () {
   /**
    * @param {object} data
    */
   function DataTransfer(data) {
-    _classCallCheck(this, DataTransfer);
+    this.data = data; // Types could be DOMStringList or array
 
-    this.data = data;
-
-    // Types could be DOMStringList or array
     this.types = data.types ? createArrayFromMixed(data.types) : [];
   }
-
   /**
    * Is this likely to be a rich text data transfer?
    *
@@ -5138,17 +5091,19 @@ var DataTransfer = function () {
    */
 
 
-  DataTransfer.prototype.isRichText = function isRichText() {
+  var _proto = DataTransfer.prototype;
+
+  _proto.isRichText = function isRichText() {
     // If HTML is available, treat this data as rich text. This way, we avoid
     // using a pasted image if it is packaged with HTML -- this may occur with
     // pastes from MS Word, for example.  However this is only rich text if
     // there's accompanying text.
     if (this.getHTML() && this.getText()) {
       return true;
-    }
-
-    // When an image is copied from a preview window, you end up with two
+    } // When an image is copied from a preview window, you end up with two
     // DataTransferItems one of which is a file's metadata as text.  Skip those.
+
+
     if (this.isImage()) {
       return false;
     }
@@ -5157,7 +5112,6 @@ var DataTransfer = function () {
       return RICH_TEXT_TYPES[type];
     });
   };
-
   /**
    * Get raw text.
    *
@@ -5165,8 +5119,9 @@ var DataTransfer = function () {
    */
 
 
-  DataTransfer.prototype.getText = function getText() {
+  _proto.getText = function getText() {
     var text;
+
     if (this.data.getData) {
       if (!this.types.length) {
         text = this.data.getData('Text');
@@ -5174,9 +5129,9 @@ var DataTransfer = function () {
         text = this.data.getData('text/plain');
       }
     }
+
     return text ? text.replace(CR_LF_REGEX, LF_ONLY) : null;
   };
-
   /**
    * Get HTML paste data
    *
@@ -5184,7 +5139,7 @@ var DataTransfer = function () {
    */
 
 
-  DataTransfer.prototype.getHTML = function getHTML() {
+  _proto.getHTML = function getHTML() {
     if (this.data.getData) {
       if (!this.types.length) {
         return this.data.getData('Text');
@@ -5193,7 +5148,6 @@ var DataTransfer = function () {
       }
     }
   };
-
   /**
    * Is this a link data transfer?
    *
@@ -5201,12 +5155,11 @@ var DataTransfer = function () {
    */
 
 
-  DataTransfer.prototype.isLink = function isLink() {
+  _proto.isLink = function isLink() {
     return this.types.some(function (type) {
       return type.indexOf('Url') != -1 || type.indexOf('text/uri-list') != -1 || type.indexOf('text/x-moz-url');
     });
   };
-
   /**
    * Get a link url.
    *
@@ -5214,18 +5167,18 @@ var DataTransfer = function () {
    */
 
 
-  DataTransfer.prototype.getLink = function getLink() {
+  _proto.getLink = function getLink() {
     if (this.data.getData) {
       if (this.types.indexOf('text/x-moz-url') != -1) {
         var url = this.data.getData('text/x-moz-url').split('\n');
         return url[0];
       }
+
       return this.types.indexOf('text/uri-list') != -1 ? this.data.getData('text/uri-list') : this.data.getData('url');
     }
 
     return null;
   };
-
   /**
    * Is this an image data transfer?
    *
@@ -5233,7 +5186,7 @@ var DataTransfer = function () {
    */
 
 
-  DataTransfer.prototype.isImage = function isImage() {
+  _proto.isImage = function isImage() {
     var isImage = this.types.some(function (type) {
       // Firefox will have a type of application/x-moz-file for images during
       // dragging
@@ -5245,8 +5198,10 @@ var DataTransfer = function () {
     }
 
     var items = this.getFiles();
+
     for (var i = 0; i < items.length; i++) {
       var type = items[i].type;
+
       if (!PhotosMimeType.isImage(type)) {
         return false;
       }
@@ -5255,7 +5210,7 @@ var DataTransfer = function () {
     return true;
   };
 
-  DataTransfer.prototype.getCount = function getCount() {
+  _proto.getCount = function getCount() {
     if (this.data.hasOwnProperty('items')) {
       return this.data.items.length;
     } else if (this.data.hasOwnProperty('mozItemCount')) {
@@ -5263,9 +5218,9 @@ var DataTransfer = function () {
     } else if (this.data.files) {
       return this.data.files.length;
     }
+
     return null;
   };
-
   /**
    * Get files.
    *
@@ -5273,7 +5228,7 @@ var DataTransfer = function () {
    */
 
 
-  DataTransfer.prototype.getFiles = function getFiles() {
+  _proto.getFiles = function getFiles() {
     if (this.data.items) {
       // createArrayFromMixed doesn't properly handle DataTransferItemLists.
       return Array.prototype.slice.call(this.data.items).map(getFileFromDataTransfer).filter(emptyFunction.thatReturnsArgument);
@@ -5283,7 +5238,6 @@ var DataTransfer = function () {
       return [];
     }
   };
-
   /**
    * Are there any files to fetch?
    *
@@ -5291,7 +5245,7 @@ var DataTransfer = function () {
    */
 
 
-  DataTransfer.prototype.hasFiles = function hasFiles() {
+  _proto.hasFiles = function hasFiles() {
     return this.getFiles().length > 0;
   };
 
@@ -5306,12 +5260,10 @@ module.exports = DataTransfer;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -5349,12 +5301,10 @@ module.exports = getSelectionOffsetKeyForNode;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -5436,12 +5386,10 @@ module.exports = getTextContentFromFiles;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -5518,12 +5466,10 @@ module.exports = getUpdatedSelectionState;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -5552,12 +5498,10 @@ module.exports = getFragmentFromSelection;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -5621,12 +5565,10 @@ module.exports = getRangeClientRects;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -5810,12 +5752,10 @@ module.exports = getDraftEditorSelectionWithNodes;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -5867,12 +5807,10 @@ module.exports = DraftRemovableWord;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -5922,12 +5860,10 @@ module.exports = moveSelectionForward;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -5996,7 +5932,8 @@ var inlineTags = {
   s: 'STRIKETHROUGH',
   strike: 'STRIKETHROUGH',
   strong: 'BOLD',
-  u: 'UNDERLINE'
+  u: 'UNDERLINE',
+  mark: 'HIGHLIGHT'
 };
 
 var knownListItemDepthClasses = (_knownListItemDepthCl = {}, _defineProperty(_knownListItemDepthCl, cx('public/DraftStyleDefault/depth0'), 0), _defineProperty(_knownListItemDepthCl, cx('public/DraftStyleDefault/depth1'), 1), _defineProperty(_knownListItemDepthCl, cx('public/DraftStyleDefault/depth2'), 2), _defineProperty(_knownListItemDepthCl, cx('public/DraftStyleDefault/depth3'), 3), _defineProperty(_knownListItemDepthCl, cx('public/DraftStyleDefault/depth4'), 4), _knownListItemDepthCl);
@@ -6595,17 +6532,20 @@ module.exports = convertFromHTMLtoContentBlocks;
  */
 
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var URI = function () {
+var URI =
+/*#__PURE__*/
+function () {
   function URI(uri) {
-    _classCallCheck(this, URI);
+    _defineProperty(this, "_uri", void 0);
 
     this._uri = uri;
   }
 
-  URI.prototype.toString = function toString() {
+  var _proto = URI.prototype;
+
+  _proto.toString = function toString() {
     return this._uri;
   };
 
@@ -6620,12 +6560,10 @@ module.exports = URI;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -6648,18 +6586,17 @@ var ContentBlock = __webpack_require__(13);
 var ContentBlockNode = __webpack_require__(6);
 var DefaultDraftBlockRenderMap = __webpack_require__(27);
 var DraftEntity = __webpack_require__(20);
-
-var _require = __webpack_require__(0),
-    List = _require.List,
-    Map = _require.Map,
-    OrderedSet = _require.OrderedSet;
-
 var URI = __webpack_require__(67);
 
 var cx = __webpack_require__(14);
 var generateRandomKey = __webpack_require__(9);
 var getSafeBodyFromHTML = __webpack_require__(41);
 var gkx = __webpack_require__(7);
+
+var _require = __webpack_require__(0),
+    List = _require.List,
+    Map = _require.Map,
+    OrderedSet = _require.OrderedSet;
 
 var experimentalTreeDataSupport = gkx('draft_tree_data_support');
 
@@ -6691,7 +6628,8 @@ var HTMLTagToInlineStyleMap = Map({
   s: 'STRIKETHROUGH',
   strike: 'STRIKETHROUGH',
   strong: 'BOLD',
-  u: 'UNDERLINE'
+  u: 'UNDERLINE',
+  mark: 'HIGHLIGHT'
 });
 
 /**
@@ -6814,6 +6752,17 @@ var ContentBlocksBuilder = function () {
   // as we are walking the HTML node tree.
   function ContentBlocksBuilder(blockTypeMap, disambiguate) {
     _classCallCheck(this, ContentBlocksBuilder);
+
+    this.characterList = List();
+    this.currentBlockType = 'unstyled';
+    this.currentDepth = -1;
+    this.currentEntity = null;
+    this.currentStyle = OrderedSet();
+    this.currentText = '';
+    this.wrapper = 'ul';
+    this.blockConfigs = [];
+    this.contentBlocks = [];
+    this.entityMap = DraftEntity;
 
     this.clear();
     this.blockTypeMap = blockTypeMap;
@@ -7343,12 +7292,10 @@ module.exports = convertFromHTMLtoContentBlocks;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -7638,12 +7585,10 @@ module.exports = RichTextEditorUtil;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -7767,12 +7712,10 @@ module.exports = getDefaultKeyBinding;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict
@@ -7799,12 +7742,10 @@ module.exports = DraftStringKey;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -7880,12 +7821,10 @@ module.exports = DraftPublic;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -8014,12 +7953,10 @@ module.exports = AtomicBlockUtils;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -8092,12 +8029,10 @@ module.exports = ContentStateInlineStyle;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -8142,12 +8077,10 @@ module.exports = applyEntityToContentState;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -8175,12 +8108,10 @@ module.exports = applyEntityToContentBlock;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -8296,12 +8227,10 @@ module.exports = getCharacterRemovalRange;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -8401,12 +8330,10 @@ module.exports = DraftEntitySegments;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -8446,12 +8373,10 @@ module.exports = getRangesForDraftEntity;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -8703,12 +8628,10 @@ module.exports = insertFragmentIntoContentState;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -8763,12 +8686,10 @@ module.exports = insertTextIntoContentState;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -9123,12 +9044,10 @@ module.exports = removeRangeFromContentState;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -9271,12 +9190,10 @@ module.exports = splitBlockInContentState;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -9375,12 +9292,10 @@ module.exports = BlockTree;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -9469,33 +9384,36 @@ module.exports = EditorBidiService;
  */
 
 
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var UnicodeBidi = __webpack_require__(32);
+
 var UnicodeBidiDirection = __webpack_require__(26);
 
 var invariant = __webpack_require__(1);
 
-var UnicodeBidiService = function () {
-
+var UnicodeBidiService =
+/*#__PURE__*/
+function () {
   /**
    * Stateful class for paragraph direction detection
    *
    * @param defaultDir  Default direction of the service
    */
   function UnicodeBidiService(defaultDir) {
-    _classCallCheck(this, UnicodeBidiService);
+    _defineProperty(this, "_defaultDir", void 0);
+
+    _defineProperty(this, "_lastDir", void 0);
 
     if (!defaultDir) {
       defaultDir = UnicodeBidiDirection.getGlobalDir();
     } else {
       !UnicodeBidiDirection.isStrong(defaultDir) ?  true ? invariant(false, 'Default direction must be a strong direction (LTR or RTL)') : invariant(false) : void 0;
     }
+
     this._defaultDir = defaultDir;
     this.reset();
   }
-
   /**
    * Reset the internal state
    *
@@ -9504,10 +9422,11 @@ var UnicodeBidiService = function () {
    */
 
 
-  UnicodeBidiService.prototype.reset = function reset() {
+  var _proto = UnicodeBidiService.prototype;
+
+  _proto.reset = function reset() {
     this._lastDir = this._defaultDir;
   };
-
   /**
    * Returns the direction of a block of text, and remembers it as the
    * fall-back direction for the next paragraph.
@@ -9517,7 +9436,7 @@ var UnicodeBidiService = function () {
    */
 
 
-  UnicodeBidiService.prototype.getDirection = function getDirection(str) {
+  _proto.getDirection = function getDirection(str) {
     this._lastDir = UnicodeBidi.getDirection(str, this._lastDir);
     return this._lastDir;
   };
@@ -9533,12 +9452,10 @@ module.exports = UnicodeBidiService;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -9732,12 +9649,10 @@ module.exports = moveBlockInContentState;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -9852,12 +9767,10 @@ module.exports = CompositeDraftDecorator;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -10340,7 +10253,6 @@ var DraftEditor = function (_React$Component2) {
 
   DraftEditor.prototype.componentDidUpdate = function componentDidUpdate() {
     this._blockSelectEvents = false;
-    // moving this here, when it was previously set in componentWillUpdate
     this._latestEditorState = this.props.editorState;
     this._latestCommittedEditorState = this.props.editorState;
   };
@@ -10435,12 +10347,10 @@ module.exports = DraftEditor;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -10616,12 +10526,10 @@ module.exports = DraftEditorCompositionHandler;
 
 "use strict";
 /**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -10641,12 +10549,10 @@ module.exports = experimentalTreeDataSupport ? __webpack_require__(92) : __webpa
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -10826,12 +10732,10 @@ module.exports = DraftEditorContentsExperimental;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -11166,12 +11070,10 @@ module.exports = DraftEditorBlockNode;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -11290,12 +11192,10 @@ module.exports = DraftEditorNode;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -11379,12 +11279,10 @@ module.exports = DraftEditorDecoratedLeaves;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -11519,27 +11417,26 @@ module.exports = DraftEditorTextNode;
  */
 
 
-
 var UAParser = __webpack_require__(98);
 
 var UNKNOWN = 'Unknown';
-
 var PLATFORM_MAP = {
   'Mac OS': 'Mac OS X'
 };
-
 /**
  * Convert from UAParser platform name to what we expect.
  */
+
 function convertPlatformName(name) {
   return PLATFORM_MAP[name] || name;
 }
-
 /**
  * Get the version number in parts. This is very naive. We actually get major
  * version as a part of UAParser already, which is generally good enough, but
  * let's get the minor just in case.
  */
+
+
 function getBrowserVersion(version) {
   if (!version) {
     return {
@@ -11547,21 +11444,22 @@ function getBrowserVersion(version) {
       minor: ''
     };
   }
+
   var parts = version.split('.');
   return {
     major: parts[0],
     minor: parts[1]
   };
 }
-
 /**
  * Get the UA data fom UAParser and then convert it to the format we're
  * expecting for our APIS.
  */
-var parser = new UAParser();
-var results = parser.getResult();
 
-// Do some conversion first.
+
+var parser = new UAParser();
+var results = parser.getResult(); // Do some conversion first.
+
 var browserVersionData = getBrowserVersion(results.browser.version);
 var uaData = {
   browserArchitecture: results.cpu.architecture || UNKNOWN,
@@ -11577,20 +11475,19 @@ var uaData = {
   platformVersion: results.os.version || UNKNOWN,
   platformFullVersion: results.os.version || UNKNOWN
 };
-
 module.exports = uaData;
 
 /***/ }),
 /* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_RESULT__;/**
- * UAParser.js v0.7.17
+var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * UAParser.js v0.7.19
  * Lightweight JavaScript-based User-Agent string parser
  * https://github.com/faisalman/ua-parser-js
  *
  * Copyright © 2012-2016 Faisal Salman <fyzlman@gmail.com>
- * Dual licensed under GPLv2 & MIT
+ * Dual licensed under GPLv2 or MIT
  */
 
 (function (window, undefined) {
@@ -11602,7 +11499,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
     /////////////
 
 
-    var LIBVERSION  = '0.7.17',
+    var LIBVERSION  = '0.7.19',
         EMPTY       = '',
         UNKNOWN     = '?',
         FUNC_TYPE   = 'function',
@@ -11830,7 +11727,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
             // Mixed
             /(kindle)\/([\w\.]+)/i,                                             // Kindle
-            /(lunascape|maxthon|netfront|jasmine|blazer)[\/\s]?([\w\.]+)*/i,
+            /(lunascape|maxthon|netfront|jasmine|blazer)[\/\s]?([\w\.]*)/i,
                                                                                 // Lunascape/Maxthon/Netfront/Jasmine/Blazer
 
             // Trident based
@@ -11839,16 +11736,16 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /(?:ms|\()(ie)\s([\w\.]+)/i,                                        // Internet Explorer
 
             // Webkit/KHTML based
-            /(rekonq)\/([\w\.]+)*/i,                                            // Rekonq
-            /(chromium|flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser)\/([\w\.-]+)/i
+            /(rekonq)\/([\w\.]*)/i,                                             // Rekonq
+            /(chromium|flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron|vivaldi|iridium|phantomjs|bowser|quark)\/([\w\.-]+)/i
                                                                                 // Chromium/Flock/RockMelt/Midori/Epiphany/Silk/Skyfire/Bolt/Iron/Iridium/PhantomJS/Bowser
             ], [NAME, VERSION], [
 
             /(trident).+rv[:\s]([\w\.]+).+like\sgecko/i                         // IE11
             ], [[NAME, 'IE'], VERSION], [
 
-            /(edge)\/((\d+)?[\w\.]+)/i                                          // Microsoft Edge
-            ], [NAME, VERSION], [
+            /(edge|edgios|edga)\/((\d+)?[\w\.]+)/i                              // Microsoft Edge
+            ], [[NAME, 'Edge'], VERSION], [
 
             /(yabrowser)\/([\w\.]+)/i                                           // Yandex
             ], [[NAME, 'Yandex'], VERSION], [
@@ -11856,8 +11753,13 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /(puffin)\/([\w\.]+)/i                                              // Puffin
             ], [[NAME, 'Puffin'], VERSION], [
 
-            /((?:[\s\/])uc?\s?browser|(?:juc.+)ucweb)[\/\s]?([\w\.]+)/i
-                                                                                // UCBrowser
+            /(focus)\/([\w\.]+)/i                                               // Firefox Focus
+            ], [[NAME, 'Firefox Focus'], VERSION], [
+
+            /(opt)\/([\w\.]+)/i                                                 // Opera Touch
+            ], [[NAME, 'Opera Touch'], VERSION], [
+
+            /((?:[\s\/])uc?\s?browser|(?:juc.+)ucweb)[\/\s]?([\w\.]+)/i         // UCBrowser
             ], [[NAME, 'UCBrowser'], VERSION], [
 
             /(comodo_dragon)\/([\w\.]+)/i                                       // Comodo Dragon
@@ -11866,17 +11768,39 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /(micromessenger)\/([\w\.]+)/i                                      // WeChat
             ], [[NAME, 'WeChat'], VERSION], [
 
+            /(brave)\/([\w\.]+)/i                                              // Brave browser
+            ], [[NAME, 'Brave'], VERSION], [
+
+            /(qqbrowserlite)\/([\w\.]+)/i                                       // QQBrowserLite
+            ], [NAME, VERSION], [
+
             /(QQ)\/([\d\.]+)/i                                                  // QQ, aka ShouQ
             ], [NAME, VERSION], [
 
             /m?(qqbrowser)[\/\s]?([\w\.]+)/i                                    // QQBrowser
             ], [NAME, VERSION], [
 
+            /(BIDUBrowser)[\/\s]?([\w\.]+)/i                                    // Baidu Browser
+            ], [NAME, VERSION], [
+
+            /(2345Explorer)[\/\s]?([\w\.]+)/i                                   // 2345 Browser
+            ], [NAME, VERSION], [
+
+            /(MetaSr)[\/\s]?([\w\.]+)/i                                         // SouGouBrowser
+            ], [NAME], [
+
+            /(LBBROWSER)/i                                      // LieBao Browser
+            ], [NAME], [
+
             /xiaomi\/miuibrowser\/([\w\.]+)/i                                   // MIUI Browser
             ], [VERSION, [NAME, 'MIUI Browser']], [
 
             /;fbav\/([\w\.]+);/i                                                // Facebook App for iOS & Android
             ], [VERSION, [NAME, 'Facebook']], [
+
+            /safari\s(line)\/([\w\.]+)/i,                                       // Line App for iOS
+            /android.+(line)\/([\w\.]+)\/iab/i                                  // Line App for Android
+            ], [NAME, VERSION], [
 
             /headlesschrome(?:\/([\w\.]+)|\s)/i                                 // Chrome Headless
             ], [VERSION, [NAME, 'Chrome Headless']], [
@@ -11928,7 +11852,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /(swiftfox)/i,                                                      // Swiftfox
             /(icedragon|iceweasel|camino|chimera|fennec|maemo\sbrowser|minimo|conkeror)[\/\s]?([\w\.\+]+)/i,
                                                                                 // IceDragon/Iceweasel/Camino/Chimera/Fennec/Maemo/Minimo/Conkeror
-            /(firefox|seamonkey|k-meleon|icecat|iceape|firebird|phoenix)\/([\w\.-]+)/i,
+            /(firefox|seamonkey|k-meleon|icecat|iceape|firebird|phoenix|palemoon|basilisk|waterfox)\/([\w\.-]+)$/i,
+
                                                                                 // Firefox/SeaMonkey/K-Meleon/IceCat/IceApe/Firebird/Phoenix
             /(mozilla)\/([\w\.]+).+rv\:.+gecko\/\d+/i,                          // Mozilla
 
@@ -11936,7 +11861,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /(polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf|sleipnir)[\/\s]?([\w\.]+)/i,
                                                                                 // Polaris/Lynx/Dillo/iCab/Doris/Amaya/w3m/NetSurf/Sleipnir
             /(links)\s\(([\w\.]+)/i,                                            // Links
-            /(gobrowser)\/?([\w\.]+)*/i,                                        // GoBrowser
+            /(gobrowser)\/?([\w\.]*)/i,                                         // GoBrowser
             /(ice\s?browser)\/v?([\w\._]+)/i,                                   // ICE Browser
             /(mosaic)[\/\s]([\w\.]+)/i                                          // Mosaic
             ], [NAME, VERSION]
@@ -12074,7 +11999,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /(sun4\w)[;\)]/i                                                    // SPARC
             ], [[ARCHITECTURE, 'sparc']], [
 
-            /((?:avr32|ia64(?=;))|68k(?=\))|arm(?:64|(?=v\d+;))|(?=atmel\s)avr|(?:irix|mips|sparc)(?:64)?(?=;)|pa-risc)/i
+            /((?:avr32|ia64(?=;))|68k(?=\))|arm(?:64|(?=v\d+[;l]))|(?=atmel\s)avr|(?:irix|mips|sparc)(?:64)?(?=;)|pa-risc)/i
                                                                                 // IA64, 68K, ARM/64, AVR/32, IRIX/64, MIPS/64, SPARC/64, PA-RISC
             ], [[ARCHITECTURE, util.lowerize]]
         ],
@@ -12098,10 +12023,12 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /(dell)\s(strea[kpr\s\d]*[\dko])/i                                  // Dell Streak
             ], [VENDOR, MODEL, [TYPE, TABLET]], [
 
-            /(kf[A-z]+)\sbuild\/[\w\.]+.*silk\//i                               // Kindle Fire HD
+            /(kf[A-z]+)\sbuild\/.+silk\//i                                      // Kindle Fire HD
             ], [MODEL, [VENDOR, 'Amazon'], [TYPE, TABLET]], [
-            /(sd|kf)[0349hijorstuw]+\sbuild\/[\w\.]+.*silk\//i                  // Fire Phone
+            /(sd|kf)[0349hijorstuw]+\sbuild\/.+silk\//i                         // Fire Phone
             ], [[MODEL, mapper.str, maps.device.amazon.model], [VENDOR, 'Amazon'], [TYPE, MOBILE]], [
+            /android.+aft([bms])\sbuild/i                                       // Fire TV
+            ], [MODEL, [VENDOR, 'Amazon'], [TYPE, SMARTTV]], [
 
             /\((ip[honed|\s\w*]+);.+(apple)/i                                   // iPod/iPhone
             ], [MODEL, VENDOR, [TYPE, MOBILE]], [
@@ -12109,7 +12036,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             ], [MODEL, [VENDOR, 'Apple'], [TYPE, MOBILE]], [
 
             /(blackberry)[\s-]?(\w+)/i,                                         // BlackBerry
-            /(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|meizu|motorola|polytron)[\s_-]?([\w-]+)*/i,
+            /(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|meizu|motorola|polytron)[\s_-]?([\w-]*)/i,
                                                                                 // BenQ/Palm/Sony-Ericsson/Acer/Asus/Dell/Meizu/Motorola/Polytron
             /(hp)\s([\w\s]+\w)/i,                                               // HP iPAQ
             /(asus)-?(\w+)/i                                                    // Asus
@@ -12143,8 +12070,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             ], [VENDOR, MODEL, [TYPE, TABLET]], [
 
             /(htc)[;_\s-]+([\w\s]+(?=\))|\w+)*/i,                               // HTC
-            /(zte)-(\w+)*/i,                                                    // ZTE
-            /(alcatel|geeksphone|lenovo|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]+)*/i
+            /(zte)-(\w*)/i,                                                     // ZTE
+            /(alcatel|geeksphone|lenovo|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]*)/i
                                                                                 // Alcatel/GeeksPhone/Lenovo/Nexian/Panasonic/Sony
             ], [VENDOR, [MODEL, /_/g, ' '], [TYPE, MOBILE]], [
 
@@ -12164,8 +12091,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             ], [[MODEL, /\./g, ' '], [VENDOR, 'Microsoft'], [TYPE, MOBILE]], [
 
                                                                                 // Motorola
-            /\s(milestone|droid(?:[2-4x]|\s(?:bionic|x2|pro|razr))?(:?\s4g)?)[\w\s]+build\//i,
-            /mot[\s-]?(\w+)*/i,
+            /\s(milestone|droid(?:[2-4x]|\s(?:bionic|x2|pro|razr))?:?(\s4g)?)[\w\s]+build\//i,
+            /mot[\s-]?(\w*)/i,
             /(XT\d{3,4}) build\//i,
             /(nexus\s6)/i
             ], [MODEL, [VENDOR, 'Motorola'], [TYPE, MOBILE]], [
@@ -12187,15 +12114,15 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /smart-tv.+(samsung)/i
             ], [VENDOR, [TYPE, SMARTTV], MODEL], [
             /((s[cgp]h-\w+|gt-\w+|galaxy\snexus|sm-\w[\w\d]+))/i,
-            /(sam[sung]*)[\s-]*(\w+-?[\w-]*)*/i,
+            /(sam[sung]*)[\s-]*(\w+-?[\w-]*)/i,
             /sec-((sgh\w+))/i
             ], [[VENDOR, 'Samsung'], MODEL, [TYPE, MOBILE]], [
 
-            /sie-(\w+)*/i                                                       // Siemens
+            /sie-(\w*)/i                                                        // Siemens
             ], [MODEL, [VENDOR, 'Siemens'], [TYPE, MOBILE]], [
 
             /(maemo|nokia).*(n900|lumia\s\d+)/i,                                // Nokia
-            /(nokia)[\s_-]?([\w-]+)*/i
+            /(nokia)[\s_-]?([\w-]*)/i
             ], [[VENDOR, 'Nokia'], MODEL, [TYPE, MOBILE]], [
 
             /android\s3\.[\s\w;-]{10}(a\d{3})/i                                 // Acer
@@ -12208,7 +12135,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /(lg) netcast\.tv/i                                                 // LG SmartTV
             ], [VENDOR, MODEL, [TYPE, SMARTTV]], [
             /(nexus\s[45])/i,                                                   // LG
-            /lg[e;\s\/-]+(\w+)*/i,
+            /lg[e;\s\/-]+(\w*)/i,
             /android.+lg(\-?[\d\w]+)\s+build/i
             ], [MODEL, [VENDOR, 'LG'], [TYPE, MOBILE]], [
 
@@ -12230,29 +12157,32 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /android.+;\s(glass)\s\d/i                                          // Google Glass
             ], [MODEL, [VENDOR, 'Google'], [TYPE, WEARABLE]], [
 
-            /android.+;\s(pixel c)\s/i                                          // Google Pixel C
+            /android.+;\s(pixel c)[\s)]/i                                       // Google Pixel C
             ], [MODEL, [VENDOR, 'Google'], [TYPE, TABLET]], [
 
-            /android.+;\s(pixel xl|pixel)\s/i                                   // Google Pixel
+            /android.+;\s(pixel( [23])?( xl)?)\s/i                              // Google Pixel
             ], [MODEL, [VENDOR, 'Google'], [TYPE, MOBILE]], [
 
-            /android.+(\w+)\s+build\/hm\1/i,                                    // Xiaomi Hongmi 'numeric' models
+            /android.+;\s(\w+)\s+build\/hm\1/i,                                 // Xiaomi Hongmi 'numeric' models
             /android.+(hm[\s\-_]*note?[\s_]*(?:\d\w)?)\s+build/i,               // Xiaomi Hongmi
-            /android.+(mi[\s\-_]*(?:one|one[\s_]plus|note lte)?[\s_]*(?:\d\w)?)\s+build/i,    // Xiaomi Mi
-            /android.+(redmi[\s\-_]*(?:note)?(?:[\s_]*[\w\s]+)?)\s+build/i      // Redmi Phones
+            /android.+(mi[\s\-_]*(?:one|one[\s_]plus|note lte)?[\s_]*(?:\d?\w?)[\s_]*(?:plus)?)\s+build/i,    // Xiaomi Mi
+            /android.+(redmi[\s\-_]*(?:note)?(?:[\s_]*[\w\s]+))\s+build/i       // Redmi Phones
             ], [[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, MOBILE]], [
-            /android.+(mi[\s\-_]*(?:pad)?(?:[\s_]*[\w\s]+)?)\s+build/i          // Mi Pad tablets
+            /android.+(mi[\s\-_]*(?:pad)(?:[\s_]*[\w\s]+))\s+build/i            // Mi Pad tablets
             ],[[MODEL, /_/g, ' '], [VENDOR, 'Xiaomi'], [TYPE, TABLET]], [
             /android.+;\s(m[1-5]\snote)\sbuild/i                                // Meizu Tablet
             ], [MODEL, [VENDOR, 'Meizu'], [TYPE, TABLET]], [
+            /(mz)-([\w-]{2,})/i                                                 // Meizu Phone
+            ], [[VENDOR, 'Meizu'], MODEL, [TYPE, MOBILE]], [
 
-            /android.+a000(1)\s+build/i                                         // OnePlus
+            /android.+a000(1)\s+build/i,                                        // OnePlus
+            /android.+oneplus\s(a\d{4})\s+build/i
             ], [MODEL, [VENDOR, 'OnePlus'], [TYPE, MOBILE]], [
 
             /android.+[;\/]\s*(RCT[\d\w]+)\s+build/i                            // RCA Tablets
             ], [MODEL, [VENDOR, 'RCA'], [TYPE, TABLET]], [
 
-            /android.+[;\/]\s*(Venue[\d\s]*)\s+build/i                          // Dell Venue Tablets
+            /android.+[;\/\s]+(Venue[\d\s]{2,7})\s+build/i                      // Dell Venue Tablets
             ], [MODEL, [VENDOR, 'Dell'], [TYPE, TABLET]], [
 
             /android.+[;\/]\s*(Q[T|M][\d\w]+)\s+build/i                         // Verizon Tablet
@@ -12264,8 +12194,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /android.+[;\/]\s+(TM\d{3}.*\b)\s+build/i                           // Barnes & Noble Tablet
             ], [MODEL, [VENDOR, 'NuVision'], [TYPE, TABLET]], [
 
-            /android.+[;\/]\s*(zte)?.+(k\d{2})\s+build/i                        // ZTE K Series Tablet
-            ], [[VENDOR, 'ZTE'], MODEL, [TYPE, TABLET]], [
+            /android.+;\s(k88)\sbuild/i                                         // ZTE K Series Tablet
+            ], [MODEL, [VENDOR, 'ZTE'], [TYPE, TABLET]], [
 
             /android.+[;\/]\s*(gen\d{3})\s+build.*49h/i                         // Swiss GEN Mobile
             ], [MODEL, [VENDOR, 'Swiss'], [TYPE, MOBILE]], [
@@ -12276,26 +12206,29 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /android.+[;\/]\s*((Zeki)?TB.*\b)\s+build/i                         // Zeki Tablets
             ], [MODEL, [VENDOR, 'Zeki'], [TYPE, TABLET]], [
 
-            /(android).+[;\/]\s+([YR]\d{2}x?.*)\s+build/i,
-            /android.+[;\/]\s+(Dragon[\-\s]+Touch\s+|DT)(.+)\s+build/i          // Dragon Touch Tablet
+            /(android).+[;\/]\s+([YR]\d{2})\s+build/i,
+            /android.+[;\/]\s+(Dragon[\-\s]+Touch\s+|DT)(\w{5})\sbuild/i        // Dragon Touch Tablet
             ], [[VENDOR, 'Dragon Touch'], MODEL, [TYPE, TABLET]], [
 
-            /android.+[;\/]\s*(NS-?.+)\s+build/i                                // Insignia Tablets
+            /android.+[;\/]\s*(NS-?\w{0,9})\sbuild/i                            // Insignia Tablets
             ], [MODEL, [VENDOR, 'Insignia'], [TYPE, TABLET]], [
 
-            /android.+[;\/]\s*((NX|Next)-?.+)\s+build/i                         // NextBook Tablets
+            /android.+[;\/]\s*((NX|Next)-?\w{0,9})\s+build/i                    // NextBook Tablets
             ], [MODEL, [VENDOR, 'NextBook'], [TYPE, TABLET]], [
 
-            /android.+[;\/]\s*(Xtreme\_?)?(V(1[045]|2[015]|30|40|60|7[05]|90))\s+build/i
+            /android.+[;\/]\s*(Xtreme\_)?(V(1[045]|2[015]|30|40|60|7[05]|90))\s+build/i
             ], [[VENDOR, 'Voice'], MODEL, [TYPE, MOBILE]], [                    // Voice Xtreme Phones
 
-            /android.+[;\/]\s*(LVTEL\-?)?(V1[12])\s+build/i                     // LvTel Phones
+            /android.+[;\/]\s*(LVTEL\-)?(V1[12])\s+build/i                     // LvTel Phones
             ], [[VENDOR, 'LvTel'], MODEL, [TYPE, MOBILE]], [
+
+            /android.+;\s(PH-1)\s/i
+            ], [MODEL, [VENDOR, 'Essential'], [TYPE, MOBILE]], [                // Essential PH-1
 
             /android.+[;\/]\s*(V(100MD|700NA|7011|917G).*\b)\s+build/i          // Envizen Tablets
             ], [MODEL, [VENDOR, 'Envizen'], [TYPE, TABLET]], [
 
-            /android.+[;\/]\s*(Le[\s\-]+Pan)[\s\-]+(.*\b)\s+build/i             // Le Pan Tablets
+            /android.+[;\/]\s*(Le[\s\-]+Pan)[\s\-]+(\w{1,9})\s+build/i          // Le Pan Tablets
             ], [VENDOR, MODEL, [TYPE, TABLET]], [
 
             /android.+[;\/]\s*(Trio[\s\-]*.*)\s+build/i                         // MachSpeed Tablets
@@ -12310,14 +12243,14 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /android.+(KS(.+))\s+build/i                                        // Amazon Kindle Tablets
             ], [MODEL, [VENDOR, 'Amazon'], [TYPE, TABLET]], [
 
-            /android.+(Gigaset)[\s\-]+(Q.+)\s+build/i                           // Gigaset Tablets
+            /android.+(Gigaset)[\s\-]+(Q\w{1,9})\s+build/i                      // Gigaset Tablets
             ], [VENDOR, MODEL, [TYPE, TABLET]], [
 
             /\s(tablet|tab)[;\/]/i,                                             // Unidentifiable Tablet
             /\s(mobile)(?:[;\/]|\ssafari)/i                                     // Unidentifiable Mobile
             ], [[TYPE, util.lowerize], VENDOR, MODEL], [
 
-            /(android.+)[;\/].+build/i                                          // Generic Android Device
+            /(android[\w\.\s\-]{0,9});.+build/i                                 // Generic Android Device
             ], [MODEL, [VENDOR, 'Generic']]
 
 
@@ -12384,7 +12317,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /(icab)[\/\s]([23]\.[\d\.]+)/i                                      // iCab
             ], [NAME, VERSION], [
 
-            /rv\:([\w\.]+).*(gecko)/i                                           // Gecko
+            /rv\:([\w\.]{1,9}).+(gecko)/i                                       // Gecko
             ], [VERSION, NAME]
         ],
 
@@ -12394,7 +12327,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /microsoft\s(windows)\s(vista|xp)/i                                 // Windows (iTunes)
             ], [NAME, VERSION], [
             /(windows)\snt\s6\.2;\s(arm)/i,                                     // Windows RT
-            /(windows\sphone(?:\sos)*)[\s\/]?([\d\.\s]+\w)*/i,                  // Windows Phone
+            /(windows\sphone(?:\sos)*)[\s\/]?([\d\.\s\w]*)/i,                   // Windows Phone
             /(windows\smobile|windows)[\s\/]?([ntce\d\.\s]+\w)/i
             ], [NAME, [VERSION, mapper.str, maps.os.windows.version]], [
             /(win(?=3|9|n)|win\s9x\s)([nt\d\.]+)/i
@@ -12403,13 +12336,13 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             // Mobile/Embedded OS
             /\((bb)(10);/i                                                      // BlackBerry 10
             ], [[NAME, 'BlackBerry'], VERSION], [
-            /(blackberry)\w*\/?([\w\.]+)*/i,                                    // Blackberry
+            /(blackberry)\w*\/?([\w\.]*)/i,                                     // Blackberry
             /(tizen)[\/\s]([\w\.]+)/i,                                          // Tizen
-            /(android|webos|palm\sos|qnx|bada|rim\stablet\sos|meego|contiki)[\/\s-]?([\w\.]+)*/i,
+            /(android|webos|palm\sos|qnx|bada|rim\stablet\sos|meego|contiki)[\/\s-]?([\w\.]*)/i,
                                                                                 // Android/WebOS/Palm/QNX/Bada/RIM/MeeGo/Contiki
             /linux;.+(sailfish);/i                                              // Sailfish OS
             ], [NAME, VERSION], [
-            /(symbian\s?os|symbos|s60(?=;))[\/\s-]?([\w\.]+)*/i                 // Symbian
+            /(symbian\s?os|symbos|s60(?=;))[\/\s-]?([\w\.]*)/i                  // Symbian
             ], [[NAME, 'Symbian'], VERSION], [
             /\((series40);/i                                                    // Series 40
             ], [NAME], [
@@ -12420,43 +12353,43 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
             /(nintendo|playstation)\s([wids34portablevu]+)/i,                   // Nintendo/Playstation
 
             // GNU/Linux based
-            /(mint)[\/\s\(]?(\w+)*/i,                                           // Mint
+            /(mint)[\/\s\(]?(\w*)/i,                                            // Mint
             /(mageia|vectorlinux)[;\s]/i,                                       // Mageia/VectorLinux
-            /(joli|[kxln]?ubuntu|debian|[open]*suse|gentoo|(?=\s)arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk|linpus)[\/\s-]?(?!chrom)([\w\.-]+)*/i,
+            /(joli|[kxln]?ubuntu|debian|suse|opensuse|gentoo|(?=\s)arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk|linpus)[\/\s-]?(?!chrom)([\w\.-]*)/i,
                                                                                 // Joli/Ubuntu/Debian/SUSE/Gentoo/Arch/Slackware
                                                                                 // Fedora/Mandriva/CentOS/PCLinuxOS/RedHat/Zenwalk/Linpus
-            /(hurd|linux)\s?([\w\.]+)*/i,                                       // Hurd/Linux
-            /(gnu)\s?([\w\.]+)*/i                                               // GNU
+            /(hurd|linux)\s?([\w\.]*)/i,                                        // Hurd/Linux
+            /(gnu)\s?([\w\.]*)/i                                                // GNU
             ], [NAME, VERSION], [
 
             /(cros)\s[\w]+\s([\w\.]+\w)/i                                       // Chromium OS
             ], [[NAME, 'Chromium OS'], VERSION],[
 
             // Solaris
-            /(sunos)\s?([\w\.]+\d)*/i                                           // Solaris
+            /(sunos)\s?([\w\.\d]*)/i                                            // Solaris
             ], [[NAME, 'Solaris'], VERSION], [
 
             // BSD based
-            /\s([frentopc-]{0,4}bsd|dragonfly)\s?([\w\.]+)*/i                   // FreeBSD/NetBSD/OpenBSD/PC-BSD/DragonFly
+            /\s([frentopc-]{0,4}bsd|dragonfly)\s?([\w\.]*)/i                    // FreeBSD/NetBSD/OpenBSD/PC-BSD/DragonFly
             ], [NAME, VERSION],[
 
-            /(haiku)\s(\w+)/i                                                  // Haiku
+            /(haiku)\s(\w+)/i                                                   // Haiku
             ], [NAME, VERSION],[
 
             /cfnetwork\/.+darwin/i,
-            /ip[honead]+(?:.*os\s([\w]+)\slike\smac|;\sopera)/i                 // iOS
+            /ip[honead]{2,4}(?:.*os\s([\w]+)\slike\smac|;\sopera)/i             // iOS
             ], [[VERSION, /_/g, '.'], [NAME, 'iOS']], [
 
-            /(mac\sos\sx)\s?([\w\s\.]+\w)*/i,
+            /(mac\sos\sx)\s?([\w\s\.]*)/i,
             /(macintosh|mac(?=_powerpc)\s)/i                                    // Mac OS
             ], [[NAME, 'Mac OS'], [VERSION, /_/g, '.']], [
 
             // Other
-            /((?:open)?solaris)[\/\s-]?([\w\.]+)*/i,                            // Solaris
-            /(aix)\s((\d)(?=\.|\)|\s)[\w\.]*)*/i,                               // AIX
-            /(plan\s9|minix|beos|os\/2|amigaos|morphos|risc\sos|openvms)/i,
-                                                                                // Plan9/Minix/BeOS/OS2/AmigaOS/MorphOS/RISCOS/OpenVMS
-            /(unix)\s?([\w\.]+)*/i                                              // UNIX
+            /((?:open)?solaris)[\/\s-]?([\w\.]*)/i,                             // Solaris
+            /(aix)\s((\d)(?=\.|\)|\s)[\w\.])*/i,                                // AIX
+            /(plan\s9|minix|beos|os\/2|amigaos|morphos|risc\sos|openvms|fuchsia)/i,
+                                                                                // Plan9/Minix/BeOS/OS2/AmigaOS/MorphOS/RISCOS/OpenVMS/Fuchsia
+            /(unix)\s?([\w\.]*)/i                                               // UNIX
             ], [NAME, VERSION]
         ]
     };
@@ -12641,7 +12574,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
     //   jQuery always exports to global scope, unless jQuery.noConflict(true) is used,
     //   and we should catch that.
     var $ = window && (window.jQuery || window.Zepto);
-    if (typeof $ !== UNDEF_TYPE) {
+    if (typeof $ !== UNDEF_TYPE && !$.ua) {
         var parser = new UAParser();
         $.ua = parser.getResult();
         $.ua.get = function () {
@@ -12682,7 +12615,6 @@ module.exports = __webpack_amd_options__;
  */
 
 
-
 var invariant = __webpack_require__(1);
 
 var componentRegex = /\./;
@@ -12690,7 +12622,6 @@ var orRegex = /\|\|/;
 var rangeRegex = /\s+\-\s+/;
 var modifierRegex = /^(<=|<|=|>=|~>|~|>|)?\s*(.+)/;
 var numericRegex = /^(\d*)(.*)/;
-
 /**
  * Splits input `range` on "||" and returns true if any subrange matches
  * `version`.
@@ -12699,6 +12630,7 @@ var numericRegex = /^(\d*)(.*)/;
  * @param {string} version
  * @returns {boolean}
  */
+
 function checkOrExpression(range, version) {
   var expressions = range.split(orRegex);
 
@@ -12711,7 +12643,6 @@ function checkOrExpression(range, version) {
     return checkRangeExpression(range, version);
   }
 }
-
 /**
  * Splits input `range` on " - " (the surrounding whitespace is required) and
  * returns true if version falls between the two operands.
@@ -12720,9 +12651,10 @@ function checkOrExpression(range, version) {
  * @param {string} version
  * @returns {boolean}
  */
+
+
 function checkRangeExpression(range, version) {
   var expressions = range.split(rangeRegex);
-
   !(expressions.length > 0 && expressions.length <= 2) ?  true ? invariant(false, 'the "-" operator expects exactly 2 operands') : invariant(false) : void 0;
 
   if (expressions.length === 1) {
@@ -12730,13 +12662,10 @@ function checkRangeExpression(range, version) {
   } else {
     var startVersion = expressions[0],
         endVersion = expressions[1];
-
     !(isSimpleVersion(startVersion) && isSimpleVersion(endVersion)) ?  true ? invariant(false, 'operands to the "-" operator must be simple (no modifiers)') : invariant(false) : void 0;
-
     return checkSimpleExpression('>=' + startVersion, version) && checkSimpleExpression('<=' + endVersion, version);
   }
 }
-
 /**
  * Checks if `range` matches `version`. `range` should be a "simple" range (ie.
  * not a compound range using the " - " or "||" operators).
@@ -12745,8 +12674,11 @@ function checkRangeExpression(range, version) {
  * @param {string} version
  * @returns {boolean}
  */
+
+
 function checkSimpleExpression(range, version) {
   range = range.trim();
+
   if (range === '') {
     return true;
   }
@@ -12760,20 +12692,24 @@ function checkSimpleExpression(range, version) {
   switch (modifier) {
     case '<':
       return checkLessThan(versionComponents, rangeComponents);
+
     case '<=':
       return checkLessThanOrEqual(versionComponents, rangeComponents);
+
     case '>=':
       return checkGreaterThanOrEqual(versionComponents, rangeComponents);
+
     case '>':
       return checkGreaterThan(versionComponents, rangeComponents);
+
     case '~':
     case '~>':
       return checkApproximateVersion(versionComponents, rangeComponents);
+
     default:
       return checkEqual(versionComponents, rangeComponents);
   }
 }
-
 /**
  * Checks whether `a` is less than `b`.
  *
@@ -12781,10 +12717,11 @@ function checkSimpleExpression(range, version) {
  * @param {array<string>} b
  * @returns {boolean}
  */
+
+
 function checkLessThan(a, b) {
   return compareComponents(a, b) === -1;
 }
-
 /**
  * Checks whether `a` is less than or equal to `b`.
  *
@@ -12792,11 +12729,12 @@ function checkLessThan(a, b) {
  * @param {array<string>} b
  * @returns {boolean}
  */
+
+
 function checkLessThanOrEqual(a, b) {
   var result = compareComponents(a, b);
   return result === -1 || result === 0;
 }
-
 /**
  * Checks whether `a` is equal to `b`.
  *
@@ -12804,10 +12742,11 @@ function checkLessThanOrEqual(a, b) {
  * @param {array<string>} b
  * @returns {boolean}
  */
+
+
 function checkEqual(a, b) {
   return compareComponents(a, b) === 0;
 }
-
 /**
  * Checks whether `a` is greater than or equal to `b`.
  *
@@ -12815,11 +12754,12 @@ function checkEqual(a, b) {
  * @param {array<string>} b
  * @returns {boolean}
  */
+
+
 function checkGreaterThanOrEqual(a, b) {
   var result = compareComponents(a, b);
   return result === 1 || result === 0;
 }
-
 /**
  * Checks whether `a` is greater than `b`.
  *
@@ -12827,10 +12767,11 @@ function checkGreaterThanOrEqual(a, b) {
  * @param {array<string>} b
  * @returns {boolean}
  */
+
+
 function checkGreaterThan(a, b) {
   return compareComponents(a, b) === 1;
 }
-
 /**
  * Checks whether `a` is "reasonably close" to `b` (as described in
  * https://www.npmjs.org/doc/misc/semver.html). For example, if `b` is "1.3.1"
@@ -12840,6 +12781,8 @@ function checkGreaterThan(a, b) {
  * @param {array<string>} b
  * @returns {boolean}
  */
+
+
 function checkApproximateVersion(a, b) {
   var lowerBound = b.slice();
   var upperBound = b.slice();
@@ -12847,15 +12790,16 @@ function checkApproximateVersion(a, b) {
   if (upperBound.length > 1) {
     upperBound.pop();
   }
+
   var lastIndex = upperBound.length - 1;
   var numeric = parseInt(upperBound[lastIndex], 10);
+
   if (isNumber(numeric)) {
     upperBound[lastIndex] = numeric + 1 + '';
   }
 
   return checkGreaterThanOrEqual(a, lowerBound) && checkLessThan(a, upperBound);
 }
-
 /**
  * Extracts the optional modifier (<, <=, =, >=, >, ~, ~>) and version
  * components from `range`.
@@ -12866,27 +12810,28 @@ function checkApproximateVersion(a, b) {
  * @param {string} range
  * @returns {object}
  */
+
+
 function getModifierAndComponents(range) {
   var rangeComponents = range.split(componentRegex);
   var matches = rangeComponents[0].match(modifierRegex);
   !matches ?  true ? invariant(false, 'expected regex to match but it did not') : invariant(false) : void 0;
-
   return {
     modifier: matches[1],
     rangeComponents: [matches[2]].concat(rangeComponents.slice(1))
   };
 }
-
 /**
  * Determines if `number` is a number.
  *
  * @param {mixed} number
  * @returns {boolean}
  */
+
+
 function isNumber(number) {
   return !isNaN(number) && isFinite(number);
 }
-
 /**
  * Tests whether `range` is a "simple" version number without any modifiers
  * (">", "~" etc).
@@ -12894,22 +12839,24 @@ function isNumber(number) {
  * @param {string} range
  * @returns {boolean}
  */
+
+
 function isSimpleVersion(range) {
   return !getModifierAndComponents(range).modifier;
 }
-
 /**
  * Zero-pads array `array` until it is at least `length` long.
  *
  * @param {array} array
  * @param {number} length
  */
+
+
 function zeroPad(array, length) {
   for (var i = array.length; i < length; i++) {
     array[i] = '0';
   }
 }
-
 /**
  * Normalizes `a` and `b` in preparation for comparison by doing the following:
  *
@@ -12923,19 +12870,19 @@ function zeroPad(array, length) {
  * @param {array<string>} b
  * @returns {array<array<string>>}
  */
+
+
 function normalizeVersions(a, b) {
   a = a.slice();
   b = b.slice();
+  zeroPad(a, b.length); // mark "x" and "*" components as equal
 
-  zeroPad(a, b.length);
-
-  // mark "x" and "*" components as equal
   for (var i = 0; i < b.length; i++) {
     var matches = b[i].match(/^[x*]$/i);
-    if (matches) {
-      b[i] = a[i] = '0';
 
-      // final "*" greedily zeros all remaining components
+    if (matches) {
+      b[i] = a[i] = '0'; // final "*" greedily zeros all remaining components
+
       if (matches[0] === '*' && i === b.length - 1) {
         for (var j = i; j < a.length; j++) {
           a[j] = '0';
@@ -12945,10 +12892,8 @@ function normalizeVersions(a, b) {
   }
 
   zeroPad(b, a.length);
-
   return [a, b];
 }
-
 /**
  * Returns the numerical -- not the lexicographical -- ordering of `a` and `b`.
  *
@@ -12959,6 +12904,8 @@ function normalizeVersions(a, b) {
  * @returns {number} -1, 0 or 1 to indicate whether `a` is less than, equal to,
  * or greater than `b`, respectively
  */
+
+
 function compareNumeric(a, b) {
   var aPrefix = a.match(numericRegex)[1];
   var bPrefix = b.match(numericRegex)[1];
@@ -12971,7 +12918,6 @@ function compareNumeric(a, b) {
     return compare(a, b);
   }
 }
-
 /**
  * Returns the ordering of `a` and `b`.
  *
@@ -12980,6 +12926,8 @@ function compareNumeric(a, b) {
  * @returns {number} -1, 0 or 1 to indicate whether `a` is less than, equal to,
  * or greater than `b`, respectively
  */
+
+
 function compare(a, b) {
   !(typeof a === typeof b) ?  true ? invariant(false, '"a" and "b" must be of the same type') : invariant(false) : void 0;
 
@@ -12991,7 +12939,6 @@ function compare(a, b) {
     return 0;
   }
 }
-
 /**
  * Compares arrays of version components.
  *
@@ -13000,6 +12947,8 @@ function compare(a, b) {
  * @returns {number} -1, 0 or 1 to indicate whether `a` is less than, equal to,
  * or greater than `b`, respectively
  */
+
+
 function compareComponents(a, b) {
   var _normalizeVersions = normalizeVersions(a, b),
       aNormalized = _normalizeVersions[0],
@@ -13007,6 +12956,7 @@ function compareComponents(a, b) {
 
   for (var i = 0; i < bNormalized.length; i++) {
     var result = compareNumeric(aNormalized[i], bNormalized[i]);
+
     if (result) {
       return result;
     }
@@ -13051,7 +13001,6 @@ var VersionRange = {
     return checkOrExpression(range.trim(), version.trim());
   }
 };
-
 module.exports = VersionRange;
 
 /***/ }),
@@ -13068,9 +13017,7 @@ module.exports = VersionRange;
  */
 
 
-
 var hasOwnProperty = Object.prototype.hasOwnProperty;
-
 /**
  * Executes the provided `callback` once for each enumerable own property in the
  * object and constructs a new object from the results. The `callback` is
@@ -13093,16 +13040,20 @@ var hasOwnProperty = Object.prototype.hasOwnProperty;
  * @param {*} context
  * @return {?object}
  */
+
 function mapObject(object, callback, context) {
   if (!object) {
     return null;
   }
+
   var result = {};
+
   for (var name in object) {
     if (hasOwnProperty.call(object, name)) {
       result[name] = callback.call(context, object[name], name, object);
     }
   }
+
   return result;
 }
 
@@ -13123,8 +13074,6 @@ module.exports = mapObject;
  * @typechecks static-only
  */
 
-
-
 /**
  * Memoizes the return value of a function that accepts one string argument.
  */
@@ -13135,6 +13084,7 @@ function memoizeStringOnly(callback) {
     if (!cache.hasOwnProperty(string)) {
       cache[string] = callback.call(this, string);
     }
+
     return cache[string];
   };
 }
@@ -13147,12 +13097,10 @@ module.exports = memoizeStringOnly;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -13410,13 +13358,13 @@ module.exports = setDraftEditorSelection;
  *
  * @typechecks
  */
-
 var isNode = __webpack_require__(105);
-
 /**
  * @param {*} object The object to check.
  * @return {boolean} Whether or not the object is a DOM text node.
  */
+
+
 function isTextNode(object) {
   return isNode(object) && object.nodeType == 3;
 }
@@ -13466,43 +13414,56 @@ module.exports = isNode;
  *
  * @typechecks
  */
-
 var camelize = __webpack_require__(107);
+
 var hyphenate = __webpack_require__(108);
 
-function asString(value) /*?string*/{
+function asString(value)
+/*?string*/
+{
   return value == null ? value : String(value);
 }
 
-function getStyleProperty( /*DOMNode*/node, /*string*/name) /*?string*/{
-  var computedStyle = void 0;
+function getStyleProperty(
+/*DOMNode*/
+node,
+/*string*/
+name)
+/*?string*/
+{
+  var computedStyle; // W3C Standard
 
-  // W3C Standard
   if (window.getComputedStyle) {
     // In certain cases such as within an iframe in FF3, this returns null.
     computedStyle = window.getComputedStyle(node, null);
+
     if (computedStyle) {
       return asString(computedStyle.getPropertyValue(hyphenate(name)));
     }
-  }
-  // Safari
+  } // Safari
+
+
   if (document.defaultView && document.defaultView.getComputedStyle) {
-    computedStyle = document.defaultView.getComputedStyle(node, null);
-    // A Safari bug causes this to return null for `display: none` elements.
+    computedStyle = document.defaultView.getComputedStyle(node, null); // A Safari bug causes this to return null for `display: none` elements.
+
     if (computedStyle) {
       return asString(computedStyle.getPropertyValue(hyphenate(name)));
     }
+
     if (name === 'display') {
       return 'none';
     }
-  }
-  // Internet Explorer
+  } // Internet Explorer
+
+
   if (node.currentStyle) {
     if (name === 'float') {
       return asString(node.currentStyle.cssFloat || node.currentStyle.styleFloat);
     }
+
     return asString(node.currentStyle[camelize(name)]);
   }
+
   return asString(node.style && node.style[camelize(name)]);
 }
 
@@ -13523,9 +13484,7 @@ module.exports = getStyleProperty;
  *
  * @typechecks
  */
-
 var _hyphenPattern = /-(.)/g;
-
 /**
  * Camelcases a hyphenated string, for example:
  *
@@ -13535,6 +13494,7 @@ var _hyphenPattern = /-(.)/g;
  * @param {string} string
  * @return {string}
  */
+
 function camelize(string) {
   return string.replace(_hyphenPattern, function (_, character) {
     return character.toUpperCase();
@@ -13558,9 +13518,7 @@ module.exports = camelize;
  *
  * @typechecks
  */
-
 var _uppercasePattern = /([A-Z])/g;
-
 /**
  * Hyphenates a camelcased string, for example:
  *
@@ -13573,6 +13531,7 @@ var _uppercasePattern = /([A-Z])/g;
  * @param {string} string
  * @return {string}
  */
+
 function hyphenate(string) {
   return string.replace(_uppercasePattern, '-$1').toLowerCase();
 }
@@ -13594,20 +13553,19 @@ module.exports = hyphenate;
  *
  * @typechecks
  */
-
 var containsNode = __webpack_require__(35);
-
 /**
  * Gets an element's bounding rect in pixels relative to the viewport.
  *
  * @param {DOMElement} elem
  * @return {object}
  */
-function getElementRect(elem) {
-  var docElem = elem.ownerDocument.documentElement;
 
-  // FF 2, Safari 3 and Opera 9.5- do not support getBoundingClientRect().
+
+function getElementRect(elem) {
+  var docElem = elem.ownerDocument.documentElement; // FF 2, Safari 3 and Opera 9.5- do not support getBoundingClientRect().
   // IE9- will throw if the element is not in the document.
+
   if (!('getBoundingClientRect' in elem) || !containsNode(docElem, elem)) {
     return {
       left: 0,
@@ -13615,14 +13573,13 @@ function getElementRect(elem) {
       top: 0,
       bottom: 0
     };
-  }
-
-  // Subtracts clientTop/Left because IE8- added a 2px border to the
+  } // Subtracts clientTop/Left because IE8- added a 2px border to the
   // <html> element (see http://fburl.com/1493213). IE 7 in
   // Quicksmode does not report clientLeft/clientTop so there
   // will be an unaccounted offset of 2px when in quirksmode
-  var rect = elem.getBoundingClientRect();
 
+
+  var rect = elem.getBoundingClientRect();
   return {
     left: Math.round(rect.left) - docElem.clientLeft,
     right: Math.round(rect.right) - docElem.clientLeft,
@@ -13648,9 +13605,7 @@ module.exports = getElementRect;
  */
 
 
-
 var isWebkit = typeof navigator !== 'undefined' && navigator.userAgent.indexOf('AppleWebKit') > -1;
-
 /**
  * Gets the element with the document scroll properties such as `scrollLeft` and
  * `scrollHeight`. This may differ across different browsers.
@@ -13660,11 +13615,14 @@ var isWebkit = typeof navigator !== 'undefined' && navigator.userAgent.indexOf('
  * @param {?DOMDocument} doc Defaults to current document.
  * @return {?DOMElement}
  */
+
 function getDocumentScrollElement(doc) {
   doc = doc || document;
+
   if (doc.scrollingElement) {
     return doc.scrollingElement;
   }
+
   return !isWebkit && doc.compatMode === 'CSS1Compat' ? doc.documentElement : doc.body;
 }
 
@@ -13684,8 +13642,6 @@ module.exports = getDocumentScrollElement;
  * @typechecks
  */
 
-
-
 /**
  * Gets the scroll position of the supplied element or window.
  *
@@ -13704,6 +13660,7 @@ function getUnboundedScrollPosition(scrollable) {
       y: scrollable.pageYOffset || scrollable.document.documentElement.scrollTop
     };
   }
+
   return {
     x: scrollable.scrollLeft,
     y: scrollable.scrollTop
@@ -13718,12 +13675,10 @@ module.exports = getUnboundedScrollPosition;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -13794,40 +13749,7 @@ var DraftEditorContents = function (_React$Component) {
     var prevEditorState = this.props.editorState;
     var nextEditorState = nextProps.editorState;
 
-    var prevDirectionMap = prevEditorState.getDirectionMap();
-    var nextDirectionMap = nextEditorState.getDirectionMap();
-
-    // Text direction has changed for one or more blocks. We must re-render.
-    if (prevDirectionMap !== nextDirectionMap) {
-      return true;
-    }
-
-    var didHaveFocus = prevEditorState.getSelection().getHasFocus();
-    var nowHasFocus = nextEditorState.getSelection().getHasFocus();
-
-    if (didHaveFocus !== nowHasFocus) {
-      return true;
-    }
-
-    // const nextNativeContent = nextEditorState.getNativelyRenderedContent();
-
-    var wasComposing = prevEditorState.isInCompositionMode();
-    var nowComposing = nextEditorState.isInCompositionMode();
-
-    // If the state is unchanged or we're currently rendering a natively
-    // rendered state, there's nothing new to be done.
-    if (prevEditorState === nextEditorState ||
-    // (nextNativeContent !== null &&
-    //   nextEditorState.getCurrentContent() === nextNativeContent) ||
-    wasComposing && nowComposing) {
-      return false;
-    }
-
-    var prevContent = prevEditorState.getCurrentContent();
-    var nextContent = nextEditorState.getCurrentContent();
-    var prevDecorator = prevEditorState.getDecorator();
-    var nextDecorator = nextEditorState.getDecorator();
-    return wasComposing !== nowComposing || prevContent !== nextContent || prevDecorator !== nextDecorator || nextEditorState.mustForceSelection();
+    return prevEditorState !== nextEditorState;
   };
 
   DraftEditorContents.prototype.render = function render() {
@@ -13902,6 +13824,7 @@ var DraftEditorContents = function (_React$Component) {
       // counters manually.
       if (Element === 'li') {
         var shouldResetCount = lastWrapperTemplate !== wrapperTemplate || currentDepth === null || depth > currentDepth;
+        // $FlowExpectedError joinClasses args in fbjs@1.0.0 are incorrect
         className = joinClasses(className, getListItemClasses(blockType, depth, shouldResetCount, direction));
       }
 
@@ -13981,34 +13904,29 @@ module.exports = DraftEditorContents;
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
+ * 
  * @typechecks static-only
  */
 
-
-
 /**
  * Combines multiple className strings into one.
- * http://jsperf.com/joinclasses-args-vs-array
- *
- * @param {...?string} className
- * @return {string}
  */
 
-function joinClasses(className /*, ... */) {
-  if (!className) {
-    className = '';
-  }
-  var nextClass = void 0;
+function joinClasses(className) {
+  var newClassName = className || '';
   var argLength = arguments.length;
+
   if (argLength > 1) {
-    for (var ii = 1; ii < argLength; ii++) {
-      nextClass = arguments[ii];
+    for (var index = 1; index < argLength; index++) {
+      var nextClass = arguments[index];
+
       if (nextClass) {
-        className = (className ? className + ' ' : '') + nextClass;
+        newClassName = (newClassName ? newClassName + ' ' : '') + nextClass;
       }
     }
   }
-  return className;
+
+  return newClassName;
 }
 
 module.exports = joinClasses;
@@ -14019,12 +13937,10 @@ module.exports = joinClasses;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -14175,8 +14091,7 @@ var PhotosMimeType = {
   },
   isJpeg: function isJpeg(mimeString) {
     var parts = getParts(mimeString);
-    return PhotosMimeType.isImage(mimeString) && (
-    // see http://fburl.com/10972194
+    return PhotosMimeType.isImage(mimeString) && ( // see http://fburl.com/10972194
     parts[1] === 'jpeg' || parts[1] === 'pjpeg');
   }
 };
@@ -14202,9 +14117,7 @@ module.exports = PhotosMimeType;
  *
  * @typechecks
  */
-
 var invariant = __webpack_require__(1);
-
 /**
  * Convert array-like objects to arrays.
  *
@@ -14214,39 +14127,36 @@ var invariant = __webpack_require__(1);
  * @param {object|function|filelist} obj
  * @return {array}
  */
+
+
 function toArray(obj) {
-  var length = obj.length;
-
-  // Some browsers builtin objects can report typeof 'function' (e.g. NodeList
+  var length = obj.length; // Some browsers builtin objects can report typeof 'function' (e.g. NodeList
   // in old versions of Safari).
+
   !(!Array.isArray(obj) && (typeof obj === 'object' || typeof obj === 'function')) ?  true ? invariant(false, 'toArray: Array-like object expected') : invariant(false) : void 0;
-
   !(typeof length === 'number') ?  true ? invariant(false, 'toArray: Object needs a length property') : invariant(false) : void 0;
-
   !(length === 0 || length - 1 in obj) ?  true ? invariant(false, 'toArray: Object should have keys for indices') : invariant(false) : void 0;
-
-  !(typeof obj.callee !== 'function') ?  true ? invariant(false, 'toArray: Object can\'t be `arguments`. Use rest params ' + '(function(...args) {}) or Array.from() instead.') : invariant(false) : void 0;
-
-  // Old IE doesn't give collections access to hasOwnProperty. Assume inputs
+  !(typeof obj.callee !== 'function') ?  true ? invariant(false, 'toArray: Object can\'t be `arguments`. Use rest params ' + '(function(...args) {}) or Array.from() instead.') : invariant(false) : void 0; // Old IE doesn't give collections access to hasOwnProperty. Assume inputs
   // without method will throw during the slice call and skip straight to the
   // fallback.
+
   if (obj.hasOwnProperty) {
     try {
       return Array.prototype.slice.call(obj);
-    } catch (e) {
-      // IE < 9 does not support Array#slice on collections objects
+    } catch (e) {// IE < 9 does not support Array#slice on collections objects
     }
-  }
-
-  // Fall back to copying key by key. This assumes all keys have a value,
+  } // Fall back to copying key by key. This assumes all keys have a value,
   // so will not preserve sparsely populated inputs.
+
+
   var ret = Array(length);
+
   for (var ii = 0; ii < length; ii++) {
     ret[ii] = obj[ii];
   }
+
   return ret;
 }
-
 /**
  * Perform a heuristic test to determine if an object is "array-like".
  *
@@ -14262,28 +14172,21 @@ function toArray(obj) {
  * @param {*} obj
  * @return {boolean}
  */
+
+
 function hasArrayNature(obj) {
-  return (
-    // not null/false
-    !!obj && (
-    // arrays are objects, NodeLists are functions in Safari
-    typeof obj == 'object' || typeof obj == 'function') &&
-    // quacks like an array
-    'length' in obj &&
-    // not window
-    !('setInterval' in obj) &&
-    // no DOM node should be considered an array-like
+  return (// not null/false
+    !!obj && ( // arrays are objects, NodeLists are functions in Safari
+    typeof obj == 'object' || typeof obj == 'function') && // quacks like an array
+    'length' in obj && // not window
+    !('setInterval' in obj) && // no DOM node should be considered an array-like
     // a 'select' element has 'length' and 'item' properties on IE8
-    typeof obj.nodeType != 'number' && (
-    // a real array
-    Array.isArray(obj) ||
-    // arguments
-    'callee' in obj ||
-    // HTMLCollection/NodeList
+    typeof obj.nodeType != 'number' && ( // a real array
+    Array.isArray(obj) || // arguments
+    'callee' in obj || // HTMLCollection/NodeList
     'item' in obj)
   );
 }
-
 /**
  * Ensure that the argument is an array by wrapping it in an array if it is not.
  * Creates a copy of the argument if it is already an array.
@@ -14305,6 +14208,8 @@ function hasArrayNature(obj) {
  * @param {*} obj
  * @return {array}
  */
+
+
 function createArrayFromMixed(obj) {
   if (!hasArrayNature(obj)) {
     return [obj];
@@ -14323,12 +14228,10 @@ module.exports = createArrayFromMixed;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -14373,12 +14276,10 @@ module.exports = DraftEditorEditHandler;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -14592,13 +14493,11 @@ module.exports = editOnBeforeInput;
  * LICENSE file in the root directory of this source tree.
  *
  */
-
-
-
-// setimmediate adds setImmediate to the global. We want to make sure we export
+ // setimmediate adds setImmediate to the global. We want to make sure we export
 // the actual function.
 
 __webpack_require__(120);
+
 module.exports = global.setImmediate;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
 
@@ -14991,12 +14890,10 @@ process.umask = function() { return 0; };
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -15047,12 +14944,10 @@ module.exports = editOnBlur;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -15082,12 +14977,10 @@ module.exports = editOnCompositionStart;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -15124,12 +15017,10 @@ module.exports = editOnCopy;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -15199,12 +15090,10 @@ module.exports = editOnCut;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -15229,12 +15118,10 @@ module.exports = editOnDragOver;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -15259,12 +15146,10 @@ module.exports = editOnDragStart;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -15311,12 +15196,10 @@ module.exports = editOnFocus;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -15493,12 +15376,10 @@ module.exports = editOnInput;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -15676,12 +15557,10 @@ module.exports = editOnKeyDown;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -15713,15 +15592,17 @@ var SecondaryClipboard = {
       var blockEnd = content.getBlockForKey(anchorKey).getLength();
 
       if (blockEnd === selection.getAnchorOffset()) {
-        return editorState;
+        targetRange = selection.set('focusKey', content.getKeyAfter(anchorKey)).set('focusOffset', 0);
+      } else {
+        targetRange = selection.set('focusOffset', blockEnd);
       }
-
-      targetRange = selection.set('focusOffset', blockEnd);
     } else {
       targetRange = selection;
     }
 
     targetRange = nullthrows(targetRange);
+    // TODO: This should actually append to the current state when doing
+    // successive ^K commands without any other cursor movement
     clipboard = getContentStateFragment(content, targetRange);
 
     var afterRemoval = DraftModifier.removeRange(content, targetRange, 'forward');
@@ -15752,12 +15633,10 @@ module.exports = SecondaryClipboard;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -15805,12 +15684,10 @@ module.exports = keyCommandBackspaceToStartOfLine;
 
 
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -16002,12 +15879,10 @@ module.exports = expandRangeToStartOfLine;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -16065,10 +15940,7 @@ module.exports = keyCommandBackspaceWord;
  * @stub
  * 
  */
-
-
-
-// \u00a1-\u00b1\u00b4-\u00b8\u00ba\u00bb\u00bf
+ // \u00a1-\u00b1\u00b4-\u00b8\u00ba\u00bb\u00bf
 //             is latin supplement punctuation except fractions and superscript
 //             numbers
 // \u2010-\u2027\u2030-\u205e
@@ -16083,8 +15955,7 @@ module.exports = keyCommandBackspaceWord;
 // \u1801\u0964\u104a\u104b
 //             is misc. other language punctuation marks
 
-var PUNCTUATION = '[.,+*?$|#{}()\'\\^\\-\\[\\]\\\\\\/!@%"~=<>_:;' + '\u30FB\u3001\u3002\u3008-\u3011\u3014-\u301F\uFF1A-\uFF1F\uFF01-\uFF0F' + '\uFF3B-\uFF40\uFF5B-\uFF65\u2E2E\u061F\u066A-\u066C\u061B\u060C\u060D' + '\uFD3E\uFD3F\u1801\u0964\u104A\u104B\u2010-\u2027\u2030-\u205E' + '\xA1-\xB1\xB4-\xB8\xBA\xBB\xBF]';
-
+var PUNCTUATION = '[.,+*?$|#{}()\'\\^\\-\\[\\]\\\\\\/!@%"~=<>_:;' + "\u30FB\u3001\u3002\u3008-\u3011\u3014-\u301F\uFF1A-\uFF1F\uFF01-\uFF0F" + "\uFF3B-\uFF40\uFF5B-\uFF65\u2E2E\u061F\u066A-\u066C\u061B\u060C\u060D" + "\uFD3E\uFD3F\u1801\u0964\u104A\u104B\u2010-\u2027\u2030-\u205E" + "\xA1-\xB1\xB4-\xB8\xBA\xBB\xBF]";
 module.exports = {
   getPunctuation: function getPunctuation() {
     return PUNCTUATION;
@@ -16097,12 +15968,10 @@ module.exports = {
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -16149,12 +16018,10 @@ module.exports = keyCommandDeleteWord;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -16179,12 +16046,10 @@ module.exports = keyCommandInsertNewline;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -16223,12 +16088,10 @@ module.exports = keyCommandMoveSelectionToEndOfBlock;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -16267,12 +16130,10 @@ module.exports = keyCommandMoveSelectionToStartOfBlock;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -16318,12 +16179,10 @@ module.exports = keyCommandPlainBackspace;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -16370,12 +16229,10 @@ module.exports = keyCommandPlainDelete;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -16455,12 +16312,10 @@ module.exports = keyCommandTransposeCharacters;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -16510,12 +16365,10 @@ module.exports = keyCommandUndo;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -16681,12 +16534,10 @@ module.exports = editOnPaste;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -16763,12 +16614,10 @@ module.exports = DraftPasteProcessor;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -16808,12 +16657,10 @@ module.exports = adjustBlockDepthForContentState;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict
@@ -16836,12 +16683,10 @@ module.exports = splitTextIntoTextBlocks;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -16897,12 +16742,10 @@ module.exports = editOnSelect;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -16940,12 +16783,10 @@ module.exports = getDraftEditorSelection;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -17020,12 +16861,10 @@ module.exports = DraftEditorPlaceholder;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -17040,12 +16879,10 @@ module.exports = DraftEditorPlaceholder;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -17186,12 +17023,10 @@ module.exports = convertFromDraftStateToRaw;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -17234,12 +17069,10 @@ module.exports = encodeEntityRanges;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -17309,12 +17142,10 @@ module.exports = encodeInlineStyleRanges;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -17557,12 +17388,10 @@ var _assign = __webpack_require__(3);
 var _extends = _assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -17731,12 +17560,10 @@ module.exports = DraftTreeAdapter;
 
 
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -17896,12 +17723,10 @@ module.exports = DraftTreeInvariants;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
@@ -17932,12 +17757,10 @@ module.exports = createCharacterList;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -17978,12 +17801,10 @@ module.exports = decodeEntityRanges;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -18028,12 +17849,10 @@ module.exports = decodeInlineStyleRanges;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  * 
@@ -18081,12 +17900,10 @@ module.exports = getVisibleSelectionRect;
 
 "use strict";
 /**
- * Copyright (c) 2013-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  *
  * @format
  *  strict-local
